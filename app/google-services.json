@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "463552660522",
+    "project_id": "technology-practise-2k2s",
+    "storage_bucket": "technology-practise-2k2s.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463552660522:android:914f48f29cbf914cc5ef53",
+        "android_client_info": {
+          "package_name": "com.example.technpractiseandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463552660522-uo5b9llfasnpp8cov8botfb1n6tsa9l0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYAkZA_z9EgmuuKpDbxz5jSa6xmbaBw0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463552660522-uo5b9llfasnpp8cov8botfb1n6tsa9l0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

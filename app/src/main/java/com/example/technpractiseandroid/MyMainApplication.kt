@@ -19,6 +19,7 @@ class MyMainApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         initDagger(this)
+        authComponent()
     }
 
 
@@ -27,4 +28,6 @@ class MyMainApplication: Application() {
                 .application(app)
                 .build()
     }
+    fun authComponent() = appComponent.authComponent().create()
+
 }

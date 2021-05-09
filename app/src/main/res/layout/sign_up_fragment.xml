@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+ <data>
+        <variable
+            name="vm"
+            type="com.example.technpractiseandroid.auth.registration.RegistrationVM" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_sign_in_app_name"
+        android:id="@+id/tv_sign_up_app_name"
         android:layout_width="236dp"
         android:layout_height="76dp"
         android:layout_marginTop="56dp"
@@ -20,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_sign_in_username"
+        android:id="@+id/ti_sign_up_username"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,13 +37,15 @@
 
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sign_in_app_name">
+        app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_app_name">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_sign_in_username"
+            android:id="@+id/et_sign_up_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@={vm.username}"
             android:hint="username"
+
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,19 +62,20 @@
 
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_sign_in_username">
+        app:layout_constraintTop_toBottomOf="@+id/ti_sign_up_username">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_sign_up_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="email"
+            android:text="@{vm.email}"
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ti_sign_in_password"
+        android:id="@+id/ti_sign_up_password"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,16 +90,17 @@
         app:layout_constraintTop_toBottomOf="@+id/ti_sign_up_email">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_sign_in_password"
+            android:id="@+id/et_sign_up_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="password"
+            android:text="@{vm.password}"
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_sign_in_enter"
+        android:id="@+id/btn_sign_up_enter"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="170dp"
         android:layout_height="62dp"
@@ -101,6 +110,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_sign_in_password"
+        app:layout_constraintTop_toBottomOf="@+id/ti_sign_up_password"
         app:layout_constraintVertical_bias="0.414" />
+    <TextView
+        android:id="@+id/tv_sign_up_to_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@{vm.test}"
+        android:text="Want to create an account?"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_sign_up_enter" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

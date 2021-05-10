@@ -5,11 +5,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:background">#75230123</item>
+<!--        <item name="android:background">#75230123</item>-->
+        <item name="android:background">#79430443</item>
         <item name="android:textColor">#FFFEFF</item>
         <item name="android:textColorHint">#F4F1F4</item>
         <item name="buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
         <item name="android:fontFamily">@font/happy_monkey</item>
+        <item name="colorControlActivated">#CFF3B8</item>
     </style>
 
 </resources>

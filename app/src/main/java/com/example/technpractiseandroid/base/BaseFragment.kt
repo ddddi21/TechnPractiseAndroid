@@ -6,7 +6,7 @@ import androidx.navigation.fragment.NavHostFragment
 import dagger.android.support.DaggerFragment;
 
 
-public abstract class BaseFragment<T: ViewModel>: DaggerFragment() {
+public abstract class BaseFragment<T: ViewModel>: Fragment() {
 lateinit var viewModel: T
 }
 val Fragment.navigationController

@@ -23,11 +23,11 @@ class LoginFragment: BaseFragment<LoginVM>() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private var loginVM: LoginVM =
-        ViewModelProvider(this, viewModelFactory).get(LoginVM::class.java)
+    lateinit var loginVM: LoginVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        MyMainApplication().authComponent().inject(fragment = this@LoginFragment)
+        MyMainApplication.appComponent.inject(this)
+        loginVM = ViewModelProvider(this, viewModelFactory).get(LoginVM::class.java)
         super.onCreate(savedInstanceState)
     }
 
@@ -40,11 +40,20 @@ class LoginFragment: BaseFragment<LoginVM>() {
         binding.lifecycleOwner = this
         binding.vm = loginVM
 
-        val enterBtn = (view as ViewGroup).findViewById<Button>(R.id.btn_sign_up_enter)
-        val toRegistration = (view as ViewGroup).findViewById<TextView>(R.id.tv_sign_in_to_sign_up)
 
-        toRegistration.setOnClickListener {
+        binding.tvSignInToSignUp.setOnClickListener {
             onRegistration()
+        }
+
+        binding.btnSignUpEnter.setOnClickListener {
+            var valid = loginVM.validForm()
+            binding.tiSignUpUsername.error = loginVM.emailError.value
+            binding.tiSignUpPassword.error = loginVM.passwordError.value
+            if (loginVM.validForm()){
+                return@setOnClickListener
+            } else {
+                loginVM.onLoginClick()
+            }
         }
 
 //        enterBtn.setOnClickListener {

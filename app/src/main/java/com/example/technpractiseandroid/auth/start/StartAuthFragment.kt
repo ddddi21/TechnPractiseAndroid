@@ -1,5 +1,6 @@
 package com.example.technpractiseandroid.auth.start
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
 import com.example.technpractiseandroid.auth.registration.RegistrationVM
 import com.example.technpractiseandroid.base.BaseFragment
+import com.example.technpractiseandroid.base.LoginActivity
 import com.example.technpractiseandroid.databinding.FragmentStartAuthBinding
 import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
@@ -26,14 +29,16 @@ class StartAuthFragment: BaseFragment<StartAuthVM>() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private var viemodel: StartAuthVM =
-        ViewModelProvider(this, viewModelFactory).get(StartAuthVM::class.java)
+    lateinit var viemodel: StartAuthVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         Timber.d("findBug: Start auth fragment")
         Log.d("findBug", "Start auth fragment")
-        MyMainApplication().authComponent().inject(this)
-        super.onCreate(savedInstanceState)
+        MyMainApplication.appComponent.inject(this)
+        viemodel =ViewModelProvider(this, viewModelFactory).get(StartAuthVM::class.java)
+//        viemodel = this.viewModels(viewModelFactory)
+
         mAuth = FirebaseAuth.getInstance()
     }
 //    override fun onStart() {
@@ -56,21 +61,26 @@ class StartAuthFragment: BaseFragment<StartAuthVM>() {
         binding.lifecycleOwner= this
         binding.vm = viemodel
 
-        navigate(view as ViewGroup)
+        binding.btnStartAuthToSignIn.setOnClickListener {
+            onLoginClick()
+        }
+        binding.btnStartAuthToSignUp.setOnClickListener {
+            onRegistrationClick()
+        }
         return binding.root
     }
 
-    private fun navigate(root: ViewGroup){
-        val toLogin = root.findViewById<Button>(R.id.btn_start_auth_to_sign_in)
-        val toRegistration = root.findViewById<Button>(R.id.btn_start_auth_to_sign_up)
-
-        toLogin.setOnClickListener {
-            onLoginClick()
-        }
-        toRegistration.setOnClickListener {
-            onRegistrationClick()
-        }
-    }
+//    private fun navigate(root: ViewGroup){
+//        val toLogin = root.findViewById<Button>(R.id.btn_start_auth_to_sign_in)
+//        val toRegistration = root.findViewById<Button>(R.id.btn_start_auth_to_sign_up)
+//
+//        toLogin.setOnClickListener {
+//            onLoginClick()
+//        }
+//        toRegistration.setOnClickListener {
+//            onRegistrationClick()
+//        }
+//    }
 
     private fun onLoginClick(){
         navigationController.navigate(R.id.action_startAuthFragment_to_loginFragment)

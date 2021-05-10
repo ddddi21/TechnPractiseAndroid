@@ -16,8 +16,11 @@ private val db: FirebaseFirestore
     val email = MutableLiveData("")
     val password = MutableLiveData("")
     val username = MutableLiveData("")
+    var emailError = MutableLiveData("")
+    var usernameError= MutableLiveData("")
+    var passwordError= MutableLiveData("")
+    var isHaveError = false
 
-    val test = ""
 
     fun onRegistrationClick() {
         mAuth.createUserWithEmailAndPassword(email.value.toString(), password.value.toString())
@@ -34,6 +37,36 @@ private val db: FirebaseFirestore
                 }
 
             }
+    }
 
+
+    fun validForm(): Boolean{
+        clearErrors()
+        isHaveError = false
+        if (email.value.isNullOrEmpty()) {
+            emailError.value = "Enter email"
+            isHaveError = true
+        } //add unique check
+        if (username.value.isNullOrEmpty()) {
+            usernameError.value = "Enter username"
+            isHaveError = true
+
+        }
+        if (password.value.isNullOrEmpty()) {
+            passwordError.value = "Enter password"
+            isHaveError = true
+        } else{
+            if(password.value!!.length < 6){
+                passwordError.value= "Password length less than 6 symbols"
+                isHaveError = true
+            }
+        }
+        return isHaveError
+    }
+
+    fun clearErrors(){
+        emailError.value = ""
+        usernameError.value = ""
+        passwordError.value = ""
     }
 }

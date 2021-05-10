@@ -29,13 +29,12 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:layout_marginLeft="48dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="48dp"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
 
-        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_app_name">
 
@@ -43,8 +42,9 @@
             android:id="@+id/et_sign_up_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={vm.username}"
             android:hint="username"
+            android:text="@={vm.username}"
+            android:textColor="@color/white"
 
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -59,7 +59,6 @@
         android:layout_marginRight="48dp"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_sign_up_username">
@@ -69,7 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="email"
-            android:text="@{vm.email}"
+            android:text="@={vm.email}"
+            android:textColor="@color/white"
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -84,7 +84,6 @@
         android:layout_marginRight="48dp"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_sign_up_email">
@@ -94,7 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="password"
-            android:text="@{vm.password}"
+            android:textColor="@color/white"
+            android:text="@={vm.password}"
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -108,19 +108,21 @@
         android:text="Create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_sign_up_password"
-        app:layout_constraintVertical_bias="0.414" />
+        app:layout_constraintVertical_bias="0.238" />
+
     <TextView
         android:id="@+id/tv_sign_up_to_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@{vm.test}"
-        android:text="Want to create an account?"
+        android:text="Do you want to create a new account?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sign_up_enter" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_sign_up_enter"
+        app:layout_constraintVertical_bias="0.367" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

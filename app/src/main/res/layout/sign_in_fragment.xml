@@ -17,7 +17,7 @@
         android:layout_height="76dp"
         android:layout_marginTop="56dp"
         android:gravity="center"
-        android:text="App"
+        android:text="Sign in"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.554"
@@ -34,7 +34,6 @@
         android:layout_marginRight="48dp"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_sign_up_app_name">
@@ -43,7 +42,9 @@
             android:id="@+id/et_sign_up_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="username"
+            android:textColor="@color/white"
+            android:hint="email"
+            android:text="@={vm.email}"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,7 +58,6 @@
         android:layout_marginTop="64dp"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_sign_up_username">
@@ -67,6 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="password"
+            android:text="@={vm.password}"
+            android:textColor="@color/white"
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>

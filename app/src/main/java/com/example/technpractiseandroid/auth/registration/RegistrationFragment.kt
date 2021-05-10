@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.ViewModelProvider
 import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
+import com.example.technpractiseandroid.auth.login.LoginVM
 import com.example.technpractiseandroid.base.BaseFragment
 import com.example.technpractiseandroid.base.navigationController
 import com.example.technpractiseandroid.databinding.SignUpFragmentBinding
@@ -25,11 +26,12 @@ class RegistrationFragment: BaseFragment<RegistrationVM>() {
     lateinit var mAuth: FirebaseAuth
 
     private var isHaveError = false
-    private var registrationVM: RegistrationVM =
-        ViewModelProvider(this, viewModelFactory).get(RegistrationVM::class.java)
+    lateinit var registrationVM: RegistrationVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        MyMainApplication().authComponent().inject(fragment = this@RegistrationFragment)
+        MyMainApplication.appComponent.inject(fragment = this@RegistrationFragment)
+        registrationVM = ViewModelProvider(this, viewModelFactory).get(RegistrationVM::class.java)
+
 //        if(mAuth != null)
 //        navigate to login
         super.onCreate(savedInstanceState)
@@ -44,43 +46,25 @@ class RegistrationFragment: BaseFragment<RegistrationVM>() {
         binding.lifecycleOwner = this
         binding.vm = registrationVM
 
-        val enterBtn = (view as ViewGroup).findViewById<Button>(R.id.btn_sign_up_enter)
-        val toLogin = (view as ViewGroup).findViewById<TextView>(R.id.tv_sign_up_to_sign_in)
-
-        toLogin.setOnClickListener {
+        binding.tvSignUpToSignIn.setOnClickListener {
             onLogin()
         }
 
-        enterBtn.setOnClickListener {
-           errorMessages(view as ViewGroup)
-           if(!isHaveError){
-               viewModel.onRegistrationClick()
-           }
+        binding.btnSignUpEnter.setOnClickListener {
+            var valid = registrationVM.validForm()
+            binding.tiSignUpEmail.error = registrationVM.emailError.value
+            binding.tiSignUpUsername.error = registrationVM.usernameError.value
+            binding.tiSignUpPassword.error = registrationVM.passwordError.value
+            if (valid){
+                return@setOnClickListener
+            } else {
+                registrationVM.onRegistrationClick()
+            }
        }
+
         return binding.root
     }
 
-    fun errorMessages(root:ViewGroup) {
-        val email = root.findViewById<AppCompatEditText>(R.id.et_sign_up_email)
-        val emailError = root.findViewById<TextInputLayout>(R.id.ti_sign_up_email)
-        val username = root.findViewById<AppCompatEditText>(R.id.et_sign_up_username)
-        val usernameError = root.findViewById<TextInputLayout>(R.id.ti_sign_up_username)
-        val password = root.findViewById<AppCompatEditText>(R.id.et_sign_up_password)
-        val passwordError = root.findViewById<TextInputLayout>(R.id.ti_sign_up_password)
-
-        if (email.text?.isEmpty() == true) {
-            emailError.error = "Enter email"
-            isHaveError = true
-        }
-        if (username.text?.isEmpty() == true) {
-            usernameError.error = "Enter username"
-            isHaveError = true
-        }
-        if (password.text?.isEmpty() == true) {
-            passwordError.error = "Enter password"
-            isHaveError = true
-        }
-    }
 
     fun createAccount() {
 //    mAuth.createUserWithEmailAndPassword()

@@ -1,16 +1,19 @@
 package com.example.technpractiseandroid.auth.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
 import com.example.technpractiseandroid.base.BaseFragment
+import com.example.technpractiseandroid.base.MainActivity
 import com.example.technpractiseandroid.base.navigationController
 import com.example.technpractiseandroid.databinding.SignInFragmentBinding
 import com.example.technpractiseandroid.databinding.SignUpFragmentBinding
@@ -52,7 +55,12 @@ class LoginFragment: BaseFragment<LoginVM>() {
             if (loginVM.validForm()){
                 return@setOnClickListener
             } else {
-                loginVM.onLoginClick()
+                activity?.let { it1 -> loginVM.onLoginClick(it1) }
+                if(!loginVM.loginErrorMessage.isEmpty()){
+                    Toast.makeText(context, loginVM.loginErrorMessage, Toast.LENGTH_SHORT).show()
+                } else{
+                    startActivity(Intent(activity, MainActivity::class.java))
+                }
             }
         }
 

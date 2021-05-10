@@ -1,6 +1,7 @@
 package com.example.technpractiseandroid.auth.start
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import com.example.technpractiseandroid.R
 import com.example.technpractiseandroid.auth.registration.RegistrationVM
 import com.example.technpractiseandroid.base.BaseFragment
 import com.example.technpractiseandroid.base.LoginActivity
+import com.example.technpractiseandroid.base.MainActivity
 import com.example.technpractiseandroid.databinding.FragmentStartAuthBinding
 import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
@@ -41,16 +43,20 @@ class StartAuthFragment: BaseFragment<StartAuthVM>() {
 
         mAuth = FirebaseAuth.getInstance()
     }
-//    override fun onStart() {
-//        super.onStart()
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        if(mAuth?.currentUser != null){
-//            //user sign in
-//            //updateUI(currentUser)
-//        } else{
-//            // user log out
-//        }
-//    }
+    override fun onStart() {
+        super.onStart()
+        var user:FirebaseAuth ?= null
+        // Check if user is signed in (non-null) and update UI accordingly.
+        Timber.d("current user: user")
+        if(mAuth?.currentUser!= null){
+            Log.d ("display name:", mAuth?.currentUser!!.displayName)
+            startMainActivity()
+            //user sign in
+            //updateUI(currentUser)
+        } else{
+            // user log out
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,17 +76,6 @@ class StartAuthFragment: BaseFragment<StartAuthVM>() {
         return binding.root
     }
 
-//    private fun navigate(root: ViewGroup){
-//        val toLogin = root.findViewById<Button>(R.id.btn_start_auth_to_sign_in)
-//        val toRegistration = root.findViewById<Button>(R.id.btn_start_auth_to_sign_up)
-//
-//        toLogin.setOnClickListener {
-//            onLoginClick()
-//        }
-//        toRegistration.setOnClickListener {
-//            onRegistrationClick()
-//        }
-//    }
 
     private fun onLoginClick(){
         navigationController.navigate(R.id.action_startAuthFragment_to_loginFragment)
@@ -88,5 +83,10 @@ class StartAuthFragment: BaseFragment<StartAuthVM>() {
 
     private fun onRegistrationClick(){
         navigationController.navigate(R.id.action_startAuthFragment_to_registrationFragment)
+    }
+
+    fun startMainActivity(){
+        val intent = Intent(activity, MainActivity::class.java)
+        startActivity(intent)
     }
 }

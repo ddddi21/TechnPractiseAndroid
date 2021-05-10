@@ -1,17 +1,12 @@
 package com.example.technpractiseandroid.base
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
-import com.example.technpractiseandroid.auth.start.StartAuthFragment
-import com.example.technpractiseandroid.di.Injector
-import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
 
 class LoginActivity: AppCompatActivity() {

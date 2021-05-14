@@ -6,7 +6,10 @@ import com.example.technpractiseandroid.auth.login.LoginFragment
 import com.example.technpractiseandroid.auth.registration.RegistrationFragment
 import com.example.technpractiseandroid.auth.start.StartAuthFragment
 import com.example.technpractiseandroid.base.LoginActivity
+import com.example.technpractiseandroid.base.MainActivity
 import com.example.technpractiseandroid.di.modules.*
+import com.example.technpractiseandroid.main.HomeScreenFragment
+import com.example.technpractiseandroid.profile.ProfileFragment
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -17,8 +20,9 @@ import javax.inject.Singleton
 
 //главный батя по всем модулям
 
-@Component(modules = [AndroidSupportInjectionModule::class, MainActivityModule::class, MainAppModule::class, ViewModelFactoryModule::class,
-    FirebaseModule::class,LoginModule::class, RegistrationModule::class,StartAuthModule::class]
+@Component(modules = [AndroidSupportInjectionModule::class, MainActivityModule::class, MainAppModule::class,
+    ViewModelFactoryModule::class, FirebaseModule::class,LoginModule::class, RegistrationModule::class,
+    StartAuthModule::class, HomeScreenModule::class, ProfileModule:: class]
 )
 @Singleton
 interface MainAppComponent: AndroidInjector<Application> {
@@ -35,6 +39,11 @@ interface MainAppComponent: AndroidInjector<Application> {
     fun inject(fragment: RegistrationFragment)
     fun inject(fragment: StartAuthFragment)
     fun inject(activity: LoginActivity)
+    fun inject(fragment: HomeScreenFragment)
+    fun inject(activity: MainActivity)
+    fun inject(fragment: ProfileFragment)
+
+
 
 
 

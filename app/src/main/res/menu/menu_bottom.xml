@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/text_navigation"
-        android:icon="@android:drawable/ic_menu_myplaces"
-        android:title="Текст" />
+        android:id="@+id/home_screen"
+        android:icon="@drawable/home_black_24dp"
+        tools:ignore="MenuTitle" />
 
     <item
-        android:id="@+id/list_navigation"
-        android:icon="@android:drawable/ic_menu_view"
+        android:id="@+id/all_task"
+        android:icon="@drawable/edit_calendar_black_24dp"
         android:title="Список" />
 
     <item
-        android:id="@+id/card_navigation"
-        android:icon="@android:drawable/ic_search_category_default"
+        android:id="@+id/add_task"
+        android:icon="@drawable/add_circle_outline_black_36dp"
+        android:title="Список" />
+
+    <item
+        android:id="@+id/user_profile"
+        android:icon="@drawable/account_circle_black_24dp"
         android:title="Картиночки" />
 
 </menu>

@@ -3,6 +3,7 @@ package com.example.technpractiseandroid.auth.login
 import android.app.Activity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.google.firebase.auth.FirebaseAuth
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,7 +20,7 @@ class LoginVM @Inject constructor(
         var loginErrorMessage = ""
 
 
-
+//если неверный пароль тоже не заходит в блок else
         fun onLoginClick(activity: Activity){
                 mAuth.signInWithEmailAndPassword(email.value.toString(), password.value.toString())
                         .addOnCompleteListener(activity) { task ->

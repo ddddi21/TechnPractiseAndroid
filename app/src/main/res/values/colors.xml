@@ -6,4 +6,9 @@
     <color name="colorAccent">#F3E8B8</color>
     <color name="colorControlActivated">#0A000000</color>
     <color name="white">#FFFEFF</color>
+    <color name="bottom">#249028</color>
+    <color name="background">#79430443</color>
+    <color name="selected">#CFF3B8</color>
+    <color name="s">#FDEFD6</color>
+
 </resources>

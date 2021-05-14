@@ -2,19 +2,17 @@ package com.example.technpractiseandroid.di.modules
 
 import androidx.lifecycle.ViewModel
 import com.example.technpractiseandroid.auth.login.LoginVM
-import com.example.technpractiseandroid.base.MainActivityVM
 import com.example.technpractiseandroid.di.ViewModelKey
+import com.example.technpractiseandroid.main.HomeScreenVM
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
 
-
 @Module
-interface MainActivityModule {
+interface HomeScreenModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MainActivityVM::class)
-    fun bindLoginViewModel(viewModel: MainActivityVM): ViewModel
+    @ViewModelKey(HomeScreenVM::class)
+    fun bindLoginViewModel(viewModel: HomeScreenVM): ViewModel
 }

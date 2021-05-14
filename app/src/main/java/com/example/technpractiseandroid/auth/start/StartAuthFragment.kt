@@ -26,7 +26,7 @@ import timber.log.Timber
 
 class StartAuthFragment: BaseFragment<StartAuthVM>() {
     //спросить, сюда ли или в вм (наверное сюда)
-    private var mAuth: FirebaseAuth?= null
+//    private var mAuth: FirebaseAuth?= null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -41,21 +41,17 @@ class StartAuthFragment: BaseFragment<StartAuthVM>() {
         viemodel =ViewModelProvider(this, viewModelFactory).get(StartAuthVM::class.java)
 //        viemodel = this.viewModels(viewModelFactory)
 
-        mAuth = FirebaseAuth.getInstance()
+       viemodel.mAuth = FirebaseAuth.getInstance()
     }
     override fun onStart() {
         super.onStart()
-        var user:FirebaseAuth ?= null
         // Check if user is signed in (non-null) and update UI accordingly.
         Timber.d("current user: user")
-        if(mAuth?.currentUser!= null){
-            Log.d ("display name:", mAuth?.currentUser!!.displayName)
-            startMainActivity()
-            //user sign in
-            //updateUI(currentUser)
-        } else{
-            // user log out
-        }
+
+            if (viemodel.mAuth?.currentUser != null) {
+                Log.d("display name:", viemodel.mAuth?.currentUser!!.displayName)
+                startMainActivity()
+            }
     }
 
     override fun onCreateView(

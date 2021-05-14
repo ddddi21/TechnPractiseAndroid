@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <include
-            android:id="@+id/include"
-            layout="@layout/bottom__navigation"
-            />
+<!--        <include-->
+<!--            android:id="@+id/include"-->
+<!--            layout="@layout/bottom__navigation"-->
+<!--            />-->
     <TextView
         android:id="@+id/tv_home_page_hello_username"
         android:layout_width="158dp"

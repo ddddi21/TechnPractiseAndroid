@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
-import com.example.technpractiseandroid.auth.login.FirebaseUserLiveData
 import com.example.technpractiseandroid.auth.login.LoginVM
 import com.example.technpractiseandroid.base.BaseFragment
 import com.example.technpractiseandroid.base.navigationController
@@ -46,24 +45,12 @@ class HomeScreenFragment: BaseFragment<HomeScreenVM>() {
         return binding.root
 
     }
+    //TODO(fix user setting delay)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        observeAuthState()
         vm.setUsername()
     }
-
-//    fun observeAuthState(){
-//        vm.authenticationState.observe(viewLifecycleOwner, Observer { authState ->
-//            when(authState){
-//                HomeScreenVM.AuthenticationState.AUTHENTICATED ->{
-//                    binding.tvHomePageHelloUsername.text = vm.mAuth.currentUser.displayName
-//                }
-//            }
-//
-//        })
-//    }
-
 
 
 }

@@ -1,0 +1,371 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.example.technpractiseandroid.tasks.CreateTaskVM" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|top"
+            android:text="Create task"
+            android:textSize="24sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="120dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+             />
+
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView2"-->
+<!--            android:layout_marginTop="80dp"-->
+<!--            tools:layout_editor_absoluteX="0dp">-->
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+
+        >
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ti_create_task_name"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.071"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_create_task_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:hint="task name"
+                        android:text="@={vm.taskName}"
+                        android:paddingStart="16dp"
+                        android:textColor="@color/white"
+                        android:maxLength="30"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:singleLine="true"
+                        android:textSize="@dimen/textSize" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_grey" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ti_create_task_desc"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.071"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_create_task_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:hint="description"
+                        android:text="@={vm.taskDescription}"
+                        android:textColor="@color/white"
+                        android:paddingStart="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:lines="4"
+                        android:maxLength="100"
+                        android:textSize="@dimen/textSize" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_grey" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/subcategoryLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="8dp">
+
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/subcategoryCompleteTextView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="36dp"-->
+<!--                        android:background="@android:color/transparent"-->
+<!--                        android:dropDownVerticalOffset="10dp"-->
+<!--                        android:enabled="false"-->
+<!--                        android:focusable="true"-->
+<!--                        android:focusableInTouchMode="true"-->
+<!--                        android:hint="category"-->
+<!--                        android:maxLength="30"-->
+<!--                        android:paddingStart="16dp"-->
+<!--                        android:scrollbars="none"-->
+<!--                        android:text="@{vm.categoryName}"-->
+<!--                        android:textSize="@dimen/categorySize" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/subcategoryDropdownArrow"-->
+<!--                        android:layout_width="36dp"-->
+<!--                        android:layout_height="36dp"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:padding="10dp"-->
+<!--                        app:srcCompat="@drawable/arrow_drop_down_black_18dp" />-->
+
+                    <Button
+                        android:id="@+id/btn_create_task_work"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/category_selector"
+                        android:gravity="center"
+                        android:text="work"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        />
+
+
+                    <Button
+                        android:id="@+id/btn_create_task_home"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@+id/btn_create_task_work"
+                        android:background="@drawable/category_selector"
+                        android:gravity="center"
+                        android:text="home"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_create_task_work" />
+
+                    <Button
+                        android:id="@+id/btn_create_task_family"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@+id/btn_create_task_home"
+                        android:background="@drawable/category_selector"
+                        android:gravity="center"
+                        android:text="family"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="8dp">
+
+                    <Button
+                        android:id="@+id/btn_create_task_meeting"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/category_selector"
+                        android:text="meeting"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <Button
+                        android:id="@+id/btn_create_task_health"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@+id/btn_create_task_meeting"
+                        android:background="@drawable/category_selector"
+                        android:text="health"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <Button
+                        android:id="@+id/btn_create_task_fun"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@+id/btn_create_task_health"
+                        android:background="@drawable/category_selector"
+                        android:text="fun"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    >
+
+                    <Button
+                        android:id="@+id/btn_create_task_fast"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/category_important_selector"
+                        android:text="fast"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <Button
+                        android:id="@+id/btn_create_task_medium"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@+id/btn_create_task_fast"
+                        android:background="@drawable/category_medium_selector"
+                        android:text="medium"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <Button
+                        android:id="@+id/btn_create_task_wait"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@+id/btn_create_task_medium"
+                        android:background="@drawable/category_can_wait_selector"
+                        android:text="can wait"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_grey" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_choose_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingHorizontal="8dp">
+                    <!--                android:onClick="@{() -> vm.onDateClick()}"-->
+
+                    <TextView
+                        android:id="@+id/currentDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:hint="due to:"
+                        android:background="@android:color/transparent"
+                        android:text="@={vm.taskDueTo}"
+                        android:textSize="@dimen/categorySize"
+                        tools:text="01 янв 2021" />
+
+                    <ImageView
+                        android:id="@+id/onDateClick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:padding="10dp"
+                        android:src="@drawable/event_white_36dp" />
+
+                    <ImageView
+                        android:id="@+id/onTimeClick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="50dp"
+                        android:padding="10dp"
+                        android:src="@drawable/schedule_white_36dp" />
+
+                </RelativeLayout>
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_grey" />
+
+                <Button
+                    android:id="@+id/btn_create_task_done"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="170dp"
+                    android:layout_height="62dp"
+                    android:layout_marginStart="92dp"
+                    android:layout_marginTop="80dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:text="Create"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                     />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

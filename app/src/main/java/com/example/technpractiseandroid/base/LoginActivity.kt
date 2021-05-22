@@ -38,6 +38,9 @@ class LoginActivity: AppCompatActivity() {
         Log.d("findBug", "Start login activity onstart")
 
     }
-//    override fun onSupportNavigateUp(): Boolean = controller.navigateUp()
-
+}
+fun Activity.startApp() {
+    val intent = Intent(this, MainActivity::class.java)
+    application?.startActivity(intent)
+    finish()
 }

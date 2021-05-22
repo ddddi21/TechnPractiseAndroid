@@ -1,5 +1,7 @@
 package com.example.technpractiseandroid.base
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
@@ -43,16 +45,12 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(bottomVagView, navController)
 
     }
-
-
-    private fun navigateTo(@IdRes fragmentId: Int) {
-
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_main) as NavHostFragment
-        navHostFragment.navController.popBackStack(currentFragment, true)
-        currentFragment = fragmentId
-        navHostFragment.navController.navigate(fragmentId)
-    }
 }
+fun Activity.startLoginActivity() {
+    val intent = Intent(this, LoginActivity::class.java)
+    application?.startActivity(intent)
+    finish()
+}
+
 
 

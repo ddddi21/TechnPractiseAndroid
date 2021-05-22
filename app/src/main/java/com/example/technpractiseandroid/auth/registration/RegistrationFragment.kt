@@ -16,10 +16,13 @@ import com.example.technpractiseandroid.auth.login.LoginVM
 import com.example.technpractiseandroid.base.BaseFragment
 import com.example.technpractiseandroid.base.MainActivity
 import com.example.technpractiseandroid.base.navigationController
+import com.example.technpractiseandroid.base.startApp
 import com.example.technpractiseandroid.databinding.SignUpFragmentBinding
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.sign_up_fragment.view.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class RegistrationFragment: BaseFragment<RegistrationVM>() {
@@ -30,6 +33,8 @@ class RegistrationFragment: BaseFragment<RegistrationVM>() {
 
     private var isHaveError = false
     lateinit var registrationVM: RegistrationVM
+
+    lateinit var binding: SignUpFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         MyMainApplication.appComponent.inject(fragment = this@RegistrationFragment)
@@ -45,7 +50,7 @@ class RegistrationFragment: BaseFragment<RegistrationVM>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = SignUpFragmentBinding.inflate(inflater, container, false)
+        binding = SignUpFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = registrationVM
 
@@ -54,18 +59,15 @@ class RegistrationFragment: BaseFragment<RegistrationVM>() {
         }
 
         binding.btnSignUpEnter.setOnClickListener {
-            var nevalid = registrationVM.validForm()
-            binding.tiSignUpEmail.error = registrationVM.emailError.value
-            binding.tiSignUpUsername.error = registrationVM.usernameError.value
-            binding.tiSignUpPassword.error = registrationVM.passwordError.value
+            createAccount()
+            val nevalid = registrationVM.validForm()
             if (nevalid){
                 return@setOnClickListener
             } else {
-                activity?.let { it1 -> registrationVM.onRegistrationClick(it1) }
                 if(!registrationVM.registrationErrorMessage.isEmpty()){
                     Toast.makeText(context, registrationVM.registrationErrorMessage, Toast.LENGTH_SHORT).show()
                 } else{
-                    startActivity(Intent(activity, MainActivity::class.java))
+                    activity?.startApp()
                     Toast.makeText(context, "Please, confirm your account at ${registrationVM.email.value}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -75,8 +77,13 @@ class RegistrationFragment: BaseFragment<RegistrationVM>() {
     }
 
 
-    fun createAccount() {
-//    mAuth.createUserWithEmailAndPassword()
+    fun createAccount()= runBlocking {
+        launch {
+            registrationVM.onRegistrationClick()
+            binding.tiSignUpEmail.error = registrationVM.emailError.value
+            binding.tiSignUpUsername.error = registrationVM.usernameError.value
+            binding.tiSignUpPassword.error = registrationVM.passwordError.value
+        }
     }
 
     private fun onLogin(){

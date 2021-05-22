@@ -31,15 +31,12 @@
 
     </fragment>
 
-<!--    <fragment-->
-<!--        android:id="@+id/registrationFragment"-->
-<!--        android:name="com.example.technpractiseandroid.auth.registration.RegistrationFragment"-->
-<!--        android:label="fragment_start_registration"-->
-<!--        tools:layout="@layout/sign_up_fragment">-->
+    <fragment
+        android:id="@+id/createTaskFragment"
+        android:name="com.example.technpractiseandroid.tasks.CreateTaskFragment"
+        android:label="fragment_create_task"
+        tools:layout="@layout/create_task_fragment">
 
-<!--        <action-->
-<!--            android:id="@+id/action_registrationFragment_to_loginFragment"-->
-<!--            app:destination="@id/loginFragment" />-->
-<!--    </fragment>-->
+    </fragment>
 
 </navigation>

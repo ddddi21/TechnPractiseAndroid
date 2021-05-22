@@ -49,7 +49,6 @@ class StartAuthFragment: BaseFragment<StartAuthVM>() {
         Timber.d("current user: user")
 
             if (viemodel.mAuth?.currentUser != null) {
-                Log.d("display name:", viemodel.mAuth?.currentUser!!.displayName)
                 startMainActivity()
             }
     }

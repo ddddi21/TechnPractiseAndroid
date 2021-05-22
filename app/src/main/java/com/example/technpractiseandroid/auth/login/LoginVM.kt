@@ -1,54 +1,104 @@
 package com.example.technpractiseandroid.auth.login
 
 import android.app.Activity
+import android.app.Application
+import android.util.Log
+import android.util.Patterns
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
+import com.example.technpractiseandroid.base.startApp
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.squareup.okhttp.Dispatcher
+import io.ashdavies.rx.rxtasks.toSingle
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.schedulers.Schedulers.io
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import javax.inject.Inject
 
 
 class LoginVM @Inject constructor(
-        private val mAuth: FirebaseAuth
-        ):ViewModel(){
+        private val mAuth: FirebaseAuth, application: Application
+):AndroidViewModel(application){
         val email = MutableLiveData("")
         val password = MutableLiveData("")
         val emailError = MutableLiveData("")
         val passwordError = MutableLiveData("")
 
-        var loginErrorMessage = ""
+        var loginErrorMessage = MutableLiveData<String>()
+
+        var task: Task<AuthResult>?= null
+        var isDone = MutableLiveData(false)
+        var isHaveError = true
+        val mutex = Mutex()
 
 
-//если неверный пароль тоже не заходит в блок else
-        fun onLoginClick(activity: Activity){
-                mAuth.signInWithEmailAndPassword(email.value.toString(), password.value.toString())
-                        .addOnCompleteListener(activity) { task ->
+
+
+
+        //если неверный пароль тоже не заходит в блок else
+         suspend fun onLoginClick(){
+        isHaveError = true
+        if(validForm()){
+                return
+        }else {
+                mutex.withLock {
+                task = mAuth.signInWithEmailAndPassword(
+                        email.value.toString(),
+                        password.value.toString()
+                )
+                        .addOnCompleteListener { task: Task<AuthResult> ->
                                 if (task.isSuccessful) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Timber.d( "signInWithEmail:success")
+
+                                        Log.d("find bug", "login isSuccessful")
                                 } else {
-                                        // If sign in fails, display a message to the user.
-                                        Timber.d( task.exception,"signInWithEmail:failure")
-                                        loginErrorMessage = task.exception?.message.toString()
+                                        Log.d("find bug", task?.exception.toString())
+                                        loginErrorMessage.value =
+                                                task?.exception?.message.toString()
+
                                 }
                         }
         }
+        }
+        }
+
+
 
         fun validForm(): Boolean{
                 clearErrors()
-                var isHaveError = false
+                isHaveError = false
                 if (email.value.isNullOrEmpty()) {
                         emailError.value = "Enter email"
                         isHaveError = true
-                } //add unique check
-                if (password.value.isNullOrEmpty()) {
-                        passwordError.value = "Enter password"
-                        isHaveError = true
-                } else{
-                        if(password.value!!.length < 6){
-                                passwordError.value = "Password length less than 6 symbols"
+                }  else {
+                        if (!Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
+                                emailError.value = "invalid email form"
                                 isHaveError = true
+                        } else {
+                                if (password.value.isNullOrEmpty()) {
+                                        passwordError.value = "Enter password"
+                                        isHaveError = true
+                                } else {
+                                        if (password.value!!.length < 6) {
+                                                passwordError.value =
+                                                        "Password length less than 6 symbols"
+                                                isHaveError = true
+                                        }
+                                }
                         }
                 }
                 return isHaveError

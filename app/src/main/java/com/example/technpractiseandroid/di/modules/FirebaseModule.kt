@@ -22,4 +22,5 @@ class FirebaseModule {
     @Provides
     fun provideFirebaseFireStore(): FirebaseFirestore = FirebaseFirestore.getInstance()
 
+
 }

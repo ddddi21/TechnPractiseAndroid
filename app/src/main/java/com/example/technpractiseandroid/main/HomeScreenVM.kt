@@ -22,8 +22,8 @@ class HomeScreenVM @Inject constructor(
     val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
         if(firebaseAuth.currentUser != null){
             currentUser.value = firebaseAuth.currentUser
-            Log.d("find bug", "${mAuth.currentUser}")
-            username.value = "Hello ${firebaseAuth.currentUser.displayName}"
+            Log.d("find bug", "${firebaseAuth.currentUser}")
+            username.value = "Hello ${firebaseAuth.currentUser!!.displayName}"
         }
     }
 

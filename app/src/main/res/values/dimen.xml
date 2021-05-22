@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textSize">16sp</dimen>
+    <dimen name="categorySize">14sp</dimen>
+    <dimen name="categoryButtonWidth">120dp</dimen>
+    <dimen name="categoryButtonHeight">50dp</dimen>
+
+
+
+</resources>

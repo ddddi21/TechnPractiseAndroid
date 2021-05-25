@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="description"
+            type="String" />
+
+        <variable
+            name="dateTime"
+            type="String" />
+
+        <variable
+            name="tag"
+            type="String" />
+
+        <variable
+            name="importance"
+            type="String" />
+        
+    </data>
+    
+    
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="24sp"
+    android:paddingEnd="24sp"
+    android:paddingTop="24dp"
+    android:background="@color/task_background"
+    >
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginEnd="180dp"
+        android:id="@+id/linearLayout"
+        android:background="@color/task_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/task_background"
+            tools:text="Task" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="142dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            android:background="@color/task_background"
+            tools:text="Second line" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/task_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:background="@color/task_background"
+            android:src="@drawable/schedule_black_24dp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/iv_time"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/divider_grey"
+            android:padding="9dp"
+            android:textSize="10sp"
+            android:background="@color/task_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_time"
+            tools:text="Second line" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="80dp"
+        android:background="@color/task_background"
+        app:layout_constraintStart_toEndOf="@id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@id/relative_layout1">
+
+        <ImageView
+            android:id="@+id/iv_label1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/task_background"
+            android:src="@drawable/label_important_black_24dp" />
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/iv_label1"
+            android:fontFamily="sans-serif-black"
+            android:padding="16dp"
+            android:textColor="@color/divider_grey"
+            android:textSize="10sp"
+            android:background="@color/task_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_label1"
+            tools:text="Second line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:background="@color/task_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@id/relative_layout2">
+
+        <ImageView
+            android:id="@+id/iv_label2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/task_background"
+            android:src="@drawable/label_important_black_24dp" />
+
+        <TextView
+            android:id="@+id/tv_category_importancy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/iv_label2"
+            android:fontFamily="sans-serif-black"
+            android:padding="16dp"
+            android:textColor="@color/divider_grey"
+            android:textSize="10sp"
+            android:background="@color/task_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_label2"
+            tools:text="Second line" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

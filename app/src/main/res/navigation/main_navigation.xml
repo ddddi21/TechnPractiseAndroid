@@ -9,14 +9,6 @@
         android:name="com.example.technpractiseandroid.main.HomeScreenFragment"
         android:label="fragment_home_screen"
         tools:layout="@layout/home_page_fragment">
-
-<!--        <action-->
-<!--            android:id="@+id/action_homeScreenFragment_to_profileFragment"-->
-<!--            app:destination="@id/profileFragment" />-->
-
-<!--        <action-->
-<!--            android:id="@+id/action_startAuthFragment_to_loginFragment"-->
-<!--            app:destination="@id/loginFragment" />-->
     </fragment>
 
     <fragment
@@ -25,10 +17,6 @@
         android:label="fragment_profile"
         tools:layout="@layout/profile_fragment">
 
-<!--        <action-->
-<!--            android:id="@+id/action_loginFragment_to_registrationFragment"-->
-<!--            app:destination="@id/registrationFragment" />-->
-
     </fragment>
 
     <fragment
@@ -36,6 +24,13 @@
         android:name="com.example.technpractiseandroid.tasks.CreateTaskFragment"
         android:label="fragment_create_task"
         tools:layout="@layout/create_task_fragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/all_task"
+        android:name="com.example.technpractiseandroid.tasks.AllTasksFragment"
+        android:label="fragment_all_task"
+        tools:layout="@layout/tasks_fragment">
 
     </fragment>
 

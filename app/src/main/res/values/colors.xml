@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F396FFC5</color>
+    <color name="colorPrimary">#F32BA361</color>
 <!--    <color name="colorPrimaryDark">#419556</color>-->
     <color name="colorPrimaryDark">#92130013</color>
-    <color name="colorAccent">#F3E8B8</color>
+    <color name="colorAccent">#711547</color>
     <color name="colorControlActivated">#0A000000</color>
     <color name="white">#FFFEFF</color>
     <color name="bottom">#249028</color>
     <color name="background">#79430443</color>
     <color name="selected">#CFF3B8</color>
     <color name="s">#FDEFD6</color>
-    <color name="divider_grey">#D8E7F2</color>
+    <color name="divider_grey">#5B6770</color>
+    <color name="task_background">#EEEFF1</color>
+    <color name="red">#EA2413</color>
+    <color name="yellow">#E3DF42</color>
+    <color name="green">#0CE628</color>
+
+
 
 </resources>

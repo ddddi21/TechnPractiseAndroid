@@ -5,7 +5,7 @@ data class Task (
     var name:String,
     var description:String,
     var tag:String,
-    var impostrance:String,
+    var importance:String,
     var date: String,
     var time :String
         )

@@ -42,7 +42,6 @@
             android:id="@+id/et_sign_up_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:hint="email"
             android:maxLines="1"
             android:inputType="textEmailAddress"
@@ -73,7 +72,6 @@
             android:maxLines="1"
             android:singleLine="true"
             android:text="@={vm.password}"
-            android:textColor="@color/white"
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>

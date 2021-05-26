@@ -54,13 +54,24 @@ class AllTasksFragment: BaseFragment<AllTasksVM> (){
             //TODO(fix)
         }
         allTasksVM.tasksList.observe(viewLifecycleOwner, {list ->
-            allTasksVM.taskAdapter.updateDataSource(list)
+            allTasksVM.apply {
+                taskAdapter.updateDataSource(list)
+                allTasksVM.emptyList()
+            }
             binding.progressBar.visibility = View.GONE
         })
         allTasksVM.loadTasks()
 
+
         binding.swipe.setOnRefreshListener {
             binding.swipe.isRefreshing = false
+            allTasksVM.tasksList.observe(viewLifecycleOwner, {
+                allTasksVM.taskAdapter.updateDataSource(it)
+            })
+        }
+
+        binding.swipe2.setOnRefreshListener {
+            binding.swipe2.isRefreshing = false
         }
         setUpRecyclerView()
         return binding.root
@@ -71,14 +82,6 @@ class AllTasksFragment: BaseFragment<AllTasksVM> (){
             override fun instantiateUnderlayButton(position: Int): List<UnderlayButton> {
                 var buttons = listOf<UnderlayButton>()
                 val deleteButton = deleteButton(position)
-                val markAsUnreadButton = markAsUnreadButton(position)
-                val archiveButton = archiveButton(position)
-//                when (position) {
-//                    1 -> buttons = listOf(deleteButton)
-//                    2 -> buttons = listOf(deleteButton, markAsUnreadButton)
-//                    3 -> buttons = listOf(deleteButton, markAsUnreadButton, archiveButton)
-//                    else -> Unit
-//                }
                 buttons = listOf(deleteButton)
                 return buttons
             }
@@ -101,33 +104,16 @@ class AllTasksFragment: BaseFragment<AllTasksVM> (){
             android.R.color.holo_red_light,
             object : SwipeToDeleteCallback.UnderlayButtonClickListener {
                 override fun onClick() {
-                    toast("Deleted item $position")
-                }
+                    allTasksVM.apply {
+                        deleteTask(position)
+                        taskAdapter.removeItem(position)
+                        tasksList.observe(viewLifecycleOwner, {list ->
+                        allTasksVM.apply {
+                            taskAdapter.updateDataSource(list)
+                            allTasksVM.emptyList()
+                        }
             })
-    }
-
-    private fun markAsUnreadButton(position: Int) : SwipeToDeleteCallback.UnderlayButton {
-        return SwipeToDeleteCallback.UnderlayButton(
-            requireContext(),
-            "Mark as unread",
-            14.0f,
-            android.R.color.holo_green_light,
-            object : SwipeToDeleteCallback.UnderlayButtonClickListener {
-                override fun onClick() {
-                    toast("Marked as unread item $position")
-                }
-            })
-    }
-
-    private fun archiveButton(position: Int) : SwipeToDeleteCallback.UnderlayButton {
-        return SwipeToDeleteCallback.UnderlayButton(
-            requireContext(),
-            "Archive",
-            14.0f,
-            android.R.color.holo_blue_light,
-            object : SwipeToDeleteCallback.UnderlayButtonClickListener {
-                override fun onClick() {
-                    toast("Archived item $position")
+                    }
                 }
             })
     }

@@ -14,9 +14,9 @@ import kotlin.coroutines.CoroutineContext
 
 @Module
 class MainAppModule {
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application.applicationContext
+//    @Singleton
+//    @Provides
+//    fun provideContext(application: Application): Context = application.applicationContext
 
     @Provides
     @Singleton

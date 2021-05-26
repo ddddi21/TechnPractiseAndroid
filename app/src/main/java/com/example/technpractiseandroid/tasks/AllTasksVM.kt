@@ -20,62 +20,53 @@ class AllTasksVM @Inject constructor(
     val today = MutableLiveData(false)
     val myTasks: MutableList<Task> = mutableListOf()
     val tasksList = MutableLiveData<List<Task>>()
-    private val docSize =0
     private var errorMessage = MutableLiveData<String>()
+    private var errorMessageWhenDelete = MutableLiveData<String>()
+    var isErrorWhenDelete= MutableLiveData<Boolean> ()
     private var noTasks = false
-    var isVisible = true
+    var isVisible = MutableLiveData(true)
+    var isNoTasksMessage =  MutableLiveData<Boolean>()
 
 
     var taskAdapter = TasksAdapter(myTasks)
 
-
-    fun loadTasks(){
+    fun loadTasks() {
         viewModelScope.launch {
             try {
                 val currentUserId = mAuth.currentUser?.uid
                 if (currentUserId != null) {
                     tasksInteractor.loadTasks(currentUserId, myTasks, tasksList, errorMessage)
-                    isVisible = true
+                    isVisible.value = true
+                    isNoTasksMessage.value = false
                 }
-            } catch (throwable: Throwable){
+            } catch (throwable: Throwable) {
                 Log.d("find bug", throwable.message.toString())
             } finally {
-                isVisible = false
+                isVisible.value = false
             }
         }
+    }
 
-//            db.collection("tasks").whereEqualTo("uid", "$currentUserId")
-//                .get()
-//                .addOnSuccessListener {
-//                        documents ->
-//                    if (documents!= null) {
-//                            for (document in documents){
-//                                 var task = Task(currentUserId!!,"","","","","","")
-//                                Log.d("find bug","${document.id} => ${document.data}")
-//                                task.apply {
-//                                    name = document.data.get("name").toString()
-//                                    description = document.data.get("description").toString()
-//                                    tag = document.data.get("tag").toString()
-//                                    importance = document.data.get("importance").toString()
-//                                    date = document.data.get("date").toString()
-//                                    time = document.data.get("time").toString()
-//                                    myTasks.add(task)
-//                                }
-//                            }
-//                        tasksList.value = (myTasks)
-////                        taskAdapter = TasksAdapter(tasksList.value!!)
-//                        Log.d("find bug", "DocumentSnapshot data: ${documents.size()}")
-//                        Log.d("find bug", "${myTasks.toString()}")
-//
-//                    } else {
-//                        noTasks = true
-//                        errorMessage = "no such document"
-//                        Log.d("find bug", "no such document")
-//                    }
-//                }
-//                .addOnFailureListener{
-//                        exception ->
-//                        Log.d("find bug", "get failed with ", exception)
-//                    }
-        }
+    fun deleteTask(position: Int) {
+        viewModelScope.launch {
+                try {
+                    val currentUserId = mAuth.currentUser?.uid
+                    if (currentUserId != null) {
+                        tasksInteractor.deleteTask(currentUserId,
+                            isError = isErrorWhenDelete,
+                            errorMessage = errorMessageWhenDelete,
+                            position = position)
+                    }
+                } catch (throwable: Throwable) {
+                    Log.d("find bug", throwable.message.toString())
+                }
+            }
+    }
+
+
+    fun emptyList(){
+        isNoTasksMessage.value = myTasks.size.equals(0)
+        Log.d("find bug","${isNoTasksMessage.value} - when empty list" )
+    }
+
 }

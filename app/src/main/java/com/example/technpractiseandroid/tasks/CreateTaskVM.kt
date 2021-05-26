@@ -36,6 +36,20 @@ var tasksInteractor: TasksInteractor
     var date: String ?= null
     var time: String ?= null
 
+    private val taskSize = MutableLiveData<Int>()
+//    init {
+//        getListSize()
+//    }
+//
+//    fun getListSize() {
+//        db.collection(
+//            mAuth.currentUser!!.uid
+//        ).get().addOnSuccessListener {
+//            taskSize.value = it.size()
+//        }
+//    }
+
+
 
     fun createTask(){
         if(taskName.value.isNullOrEmpty()){
@@ -62,19 +76,12 @@ var tasksInteractor: TasksInteractor
                         "time" to time
                     )
                     viewModelScope.launch {
-                        tasksInteractor.createTask(task = task, taskCreatingErrorMessage = taskCreatingErrorMessage)
+                        tasksInteractor.createTask(task = task,
+                            taskCreatingErrorMessage = taskCreatingErrorMessage,
+                            currentUserId = currentUserId.toString(),
+                            size = taskSize
+                        )
                     }
-//                    viewModelScope.launch(Dispatchers.Main) {
-//                        db.collection("tasks")
-//                            .add(task)
-//                            .addOnSuccessListener {
-//                                Log.d("find bug", "DocumentSnapshot added")
-//                            }
-//                            .addOnFailureListener { e ->
-//                                Log.w("find bug", "Error adding document", e)
-//                                taskCreatingErrorMessage = "something wrong"
-//                            }
-//                    }
                 }
 
             }

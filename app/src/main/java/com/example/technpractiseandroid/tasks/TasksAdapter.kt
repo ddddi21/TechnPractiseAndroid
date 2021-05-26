@@ -29,6 +29,11 @@ class TasksAdapter (
         notifyDataSetChanged()
     }
 
+    fun removeItem(position: Int) {
+        list.toMutableList().removeAt(position)
+        notifyDataSetChanged()
+    }
+
 
     inner class VH(
         private val binding:ItemTaskBinding

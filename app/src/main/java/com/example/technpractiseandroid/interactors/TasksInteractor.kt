@@ -22,9 +22,24 @@ class TasksInteractor @Inject constructor(
                           }
 
     suspend fun createTask(task: HashMap<String, String?>,
-                           taskCreatingErrorMessage: MutableLiveData<String>) {
+                           taskCreatingErrorMessage: MutableLiveData<String>,
+                           currentUserId: String, size:MutableLiveData<Int>
+    ) {
         withContext(context){
-            taskRepository.createTask(task, taskCreatingErrorMessage)
+            getTasksSize(currentUserId, size)
+            taskRepository.createTask(task, taskCreatingErrorMessage, currentUserId, size)
+        }
+    }
+    suspend fun deleteTask(currentUserId: String, isError: MutableLiveData<Boolean>,
+                           errorMessage: MutableLiveData<String>, position: Int) {
+        withContext(context){
+            taskRepository.delete(currentUserId,isError, errorMessage, position)
+        }
+    }
+
+    suspend fun getTasksSize(currentUserId: String, size:MutableLiveData<Int>){
+        withContext(context){
+              taskRepository.getTasksSize(currentUserId, size)
         }
     }
 }

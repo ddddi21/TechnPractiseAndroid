@@ -15,6 +15,3 @@ lateinit var viewModel: T
 val Fragment.navigationController
     get() = NavHostFragment.findNavController(this)
 
-
-//val Fragment.onProfileClick
-//    get() = NavHostFragment.findNavController(this).navigate(R.id.action_homeScreenFragment_to_profileFragment)

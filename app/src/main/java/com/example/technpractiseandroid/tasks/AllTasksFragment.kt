@@ -53,21 +53,21 @@ class AllTasksFragment: BaseFragment<AllTasksVM> (){
             progressBar.visibility = View.VISIBLE
             //TODO(fix)
         }
-        allTasksVM.tasksList.observe(viewLifecycleOwner, {list ->
+        allTasksVM.tasksList.observe(viewLifecycleOwner) { list ->
             allTasksVM.apply {
                 taskAdapter.updateDataSource(list)
                 allTasksVM.emptyList()
             }
             binding.progressBar.visibility = View.GONE
-        })
+        }
         allTasksVM.loadTasks()
 
 
         binding.swipe.setOnRefreshListener {
             binding.swipe.isRefreshing = false
-            allTasksVM.tasksList.observe(viewLifecycleOwner, {
+            allTasksVM.tasksList.observe(viewLifecycleOwner) {
                 allTasksVM.taskAdapter.updateDataSource(it)
-            })
+            }
         }
 
         binding.swipe2.setOnRefreshListener {
@@ -107,12 +107,12 @@ class AllTasksFragment: BaseFragment<AllTasksVM> (){
                     allTasksVM.apply {
                         deleteTask(position)
                         taskAdapter.removeItem(position)
-                        tasksList.observe(viewLifecycleOwner, {list ->
-                        allTasksVM.apply {
-                            taskAdapter.updateDataSource(list)
-                            allTasksVM.emptyList()
+                        tasksList.observe(viewLifecycleOwner) { list ->
+                            allTasksVM.apply {
+                                taskAdapter.updateDataSource(list)
+                                allTasksVM.emptyList()
+                            }
                         }
-            })
                     }
                 }
             })

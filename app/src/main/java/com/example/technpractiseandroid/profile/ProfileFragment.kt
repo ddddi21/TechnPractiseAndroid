@@ -1,20 +1,14 @@
 package com.example.technpractiseandroid.profile
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.technpractiseandroid.MyMainApplication
-import com.example.technpractiseandroid.auth.login.LoginVM
-import com.example.technpractiseandroid.base.BaseFragment
-import com.example.technpractiseandroid.base.MainActivity
-import com.example.technpractiseandroid.base.startApp
-import com.example.technpractiseandroid.base.startLoginActivity
+import com.example.technpractiseandroid.R
+import com.example.technpractiseandroid.base.*
 import com.example.technpractiseandroid.databinding.ProfileFragmentBinding
-import com.example.technpractiseandroid.databinding.SignInFragmentBinding
 import javax.inject.Inject
 
 class ProfileFragment: BaseFragment<ProfileVm>() {
@@ -42,9 +36,13 @@ class ProfileFragment: BaseFragment<ProfileVm>() {
             activity?.startLoginActivity()
         }
         binding.tvFun.setOnClickListener {
-            profileVM.letsFun()
+            toFun()
         }
         return binding.root
 
+    }
+
+    private fun toFun(){
+        navigationController.navigate(R.id.action_profileFragment_to_getFunFragment)
     }
 }

@@ -72,10 +72,13 @@ class RegistrationFragment: BaseFragment<RegistrationVM>() {
                                 registrationVM.registrationErrorMessage)
                         registrationVM.userInteractor.addUserInfo(registrationVM.username)
                         if(!registrationVM.registrationErrorMessage.value.isNullOrEmpty()){
-                            Toast.makeText(context, registrationVM.registrationErrorMessage.value, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, registrationVM.registrationErrorMessage.value,
+                                Toast.LENGTH_SHORT).show()
                         } else{
                             activity?.startApp()
-                            Toast.makeText(context, "Please, confirm your account at ${registrationVM.email.value}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context,
+                                "Please, confirm your account at ${registrationVM.email.value}",
+                                Toast.LENGTH_SHORT).show()
                         }
                     } catch (throwable: Throwable){
                         Log.d("find bug", throwable.message.toString())

@@ -11,6 +11,7 @@ import com.example.technpractiseandroid.di.ActivityScope
 import com.example.technpractiseandroid.di.modules.*
 import com.example.technpractiseandroid.main.HomeScreenFragment
 import com.example.technpractiseandroid.profile.ProfileFragment
+import com.example.technpractiseandroid.profile.`fun`.GetFunFragment
 import com.example.technpractiseandroid.tasks.AllTasksFragment
 import com.example.technpractiseandroid.tasks.CreateTaskFragment
 import dagger.BindsInstance
@@ -28,7 +29,8 @@ import javax.inject.Singleton
     StartAuthModule::class, FirebaseModule::class,
     ViewModelFactoryModule::class, LoginModule::class, RegistrationModule::class,
     StartAuthModule::class, HomeScreenModule::class, ProfileModule:: class, CreateTaskModule :: class,
-    AllTasksModule::class, RepositoriesModule::class, NetModule:: class]
+    AllTasksModule::class, RepositoriesModule::class, NetModule:: class,
+    GetFunModule:: class]
 )
 @Singleton
 interface MainAppComponent: AndroidInjector<Application> {
@@ -51,6 +53,7 @@ interface MainAppComponent: AndroidInjector<Application> {
     fun inject(fragment: ProfileFragment)
     fun inject(fragment: CreateTaskFragment)
     fun inject(fragment: AllTasksFragment)
+    fun inject(fragment: GetFunFragment)
 
 
 

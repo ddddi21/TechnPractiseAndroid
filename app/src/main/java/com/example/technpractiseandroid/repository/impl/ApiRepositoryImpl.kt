@@ -14,27 +14,25 @@ import io.reactivex.schedulers.Schedulers
 class ApiRepositoryImpl(
     private var boredApi: BoredApi
 ): ApiRepository {
-    private val compositeDisposable = CompositeDisposable()
 
     override fun getActivity(newActivity: MutableLiveData<ActivityFromApi>) {
-        compositeDisposable.add(
             boredApi.getRandomActivity()
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { response ->
-                        newActivity.value?.apply {
-                            activity = response.activity
-                            accessibility = response.accessibility
-                            type = response.type
-                            participants = response.participants
-                            price = response.price
-                            key = response.key
-                            link = response.link
-                        }
-                    }, { exception ->
-                        Log.d("find bug", "get response error ${exception.message.toString()}")
+                .blockingGet()
+                .also { response ->
+                    var newNewActivityFromApi = ActivityFromApi("",0.0,
+                    "", 0, 0.0, "", "")
+                    newNewActivityFromApi.apply{
+                        activity = response.activity
+                        accessibility = response.accessibility
+                        type = response.type
+                        participants = response.participants
+                        price = response.price
+                        key = response.key
+                        link = response.link
                     }
-                ))
+                    newActivity.value = newNewActivityFromApi
+                    Log.d("find bug", newNewActivityFromApi.toString())
+                }
     }
 }

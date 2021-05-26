@@ -3,19 +3,15 @@ package com.example.technpractiseandroid.repository.impl
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.technpractiseandroid.repository.interfaces.TaskRepository
-import com.example.technpractiseandroid.user.Task
-import com.google.firebase.firestore.DocumentReference
+import com.example.technpractiseandroid.model.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.coroutines.withContext
 import java.lang.NullPointerException
 import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.coroutineContext
 import kotlin.coroutines.resume
 
 class TaskRepositoryImpl(
@@ -35,6 +31,77 @@ class TaskRepositoryImpl(
                         size.value = Integer.parseInt(it.lastOrNull()!!.id) + 1
                         Log.d("find bug", "lastOrNull ${it.lastOrNull()!!.id}")
                         Log.d("find bug", "tasksSize ${it.size()}")
+                    }
+                    continuation.resume(it)
+                }
+        }
+
+    override suspend fun getTasksSizeForCount(currentUserId: String, size:MutableLiveData<Int>): QuerySnapshot =
+        suspendCancellableCoroutine { continuation ->
+            db.collection(currentUserId)
+                .get()
+                .addOnSuccessListener {
+                    if (it.lastOrNull() == null) {
+                        size.value = 0
+                        Log.d("find bug", "tasksSize ${it.size()}")
+                    } else {
+                        size.value = it.size()
+                        Log.d("find bug", "tasksSize ${it.size()}")
+                    }
+                    continuation.resume(it)
+                }
+        }
+
+    override suspend fun getTasksCountByImportanceTagImportant(currentUserId: String,
+                                                               size:MutableLiveData<Int>):
+            QuerySnapshot =
+        suspendCancellableCoroutine { continuation ->
+            db.collection(currentUserId)
+                .whereEqualTo("importance", "fast")
+                .get()
+                .addOnSuccessListener {
+                    if (it.lastOrNull() == null) {
+                        size.value = 0
+                        Log.d("find bug", "fast tasks count ${it.size()}")
+                    } else {
+                        size.value = it.size()
+                        Log.d("find bug", "fast tasks count ${it.size()}")
+                    }
+                    continuation.resume(it)
+                }
+        }
+
+    override suspend fun getTasksCountByImportanceTagMedium(
+        currentUserId: String, size:MutableLiveData<Int>): QuerySnapshot =
+        suspendCancellableCoroutine { continuation ->
+            db.collection(currentUserId)
+                .whereEqualTo("importance", "medium")
+                .get()
+                .addOnSuccessListener {
+                    if (it.lastOrNull() == null) {
+                        size.value = 0
+                        Log.d("find bug", "medium tasks count ${it.size()}")
+                    } else {
+                        size.value = it.size()
+                        Log.d("find bug", "medium tasks count ${it.size()}")
+                    }
+                    continuation.resume(it)
+                }
+        }
+
+    override suspend fun getTasksCountByImportanceTagLight(
+        currentUserId: String, size:MutableLiveData<Int>): QuerySnapshot =
+        suspendCancellableCoroutine { continuation ->
+            db.collection(currentUserId)
+                .whereEqualTo("importance", "can wait")
+                .get()
+                .addOnSuccessListener {
+                    if (it.lastOrNull() == null) {
+                        size.value = 0
+                        Log.d("find bug", "can wait tasks count ${it.size()}")
+                    } else {
+                        size.value = it.size()
+                        Log.d("find bug", "can wait tasks count ${it.size()}")
                     }
                     continuation.resume(it)
                 }

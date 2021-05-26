@@ -2,7 +2,7 @@ package com.example.technpractiseandroid.interactors
 
 import androidx.lifecycle.MutableLiveData
 import com.example.technpractiseandroid.repository.interfaces.TaskRepository
-import com.example.technpractiseandroid.user.Task
+import com.example.technpractiseandroid.model.Task
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Named
@@ -42,4 +42,29 @@ class TasksInteractor @Inject constructor(
               taskRepository.getTasksSize(currentUserId, size)
         }
     }
+
+    suspend fun getTasksSizeForCount(currentUserId: String, size:MutableLiveData<Int>){
+        withContext(context){
+            taskRepository.getTasksSizeForCount(currentUserId, size)
+        }
+    }
+
+    suspend fun getTasksCountByImportanceTagImportant(currentUserId: String, size:MutableLiveData<Int>){
+        withContext(context){
+            taskRepository.getTasksCountByImportanceTagImportant(currentUserId, size)
+        }
+    }
+
+    suspend fun getTasksCountByImportanceTagMedium(currentUserId: String, size:MutableLiveData<Int>){
+        withContext(context){
+            taskRepository.getTasksCountByImportanceTagMedium(currentUserId, size)
+        }
+    }
+
+    suspend fun getTasksCountByImportanceTagLight(currentUserId: String, size:MutableLiveData<Int>){
+        withContext(context){
+            taskRepository.getTasksCountByImportanceTagLight(currentUserId, size)
+        }
+    }
+
 }

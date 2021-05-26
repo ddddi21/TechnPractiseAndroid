@@ -1,17 +1,11 @@
 package com.example.technpractiseandroid.auth.registration
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.technpractiseandroid.interactors.UserInteractor
-import com.example.technpractiseandroid.user.User
 import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
-import com.google.firebase.auth.ktx.userProfileChangeRequest
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 
 class RegistrationVM @Inject constructor(

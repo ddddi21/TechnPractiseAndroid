@@ -5,6 +5,7 @@ import com.example.technpractiseandroid.repository.impl.TaskRepositoryImpl
 import com.example.technpractiseandroid.repository.impl.UserRepositoryImpl
 import com.example.technpractiseandroid.repository.interfaces.TaskRepository
 import com.example.technpractiseandroid.repository.interfaces.UserRepository
+import com.example.technpractiseandroid.repository.interfaces.WordRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
@@ -28,4 +29,8 @@ class RepositoriesModule {
     fun provideUserRepo(
         mAuth: FirebaseAuth
     ): UserRepository = UserRepositoryImpl(mAuth)
+
+    @Provides
+    @Singleton
+    fun provideWordRepo(): WordRepository = WordRepository
 }

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.technpractiseandroid.databinding.ItemTaskBinding
-import com.example.technpractiseandroid.user.Task
+import com.example.technpractiseandroid.model.Task
 
 class TasksAdapter (
     private var list : List<Task?>

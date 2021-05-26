@@ -1,8 +1,7 @@
 package com.example.technpractiseandroid.repository.interfaces
 
 import androidx.lifecycle.MutableLiveData
-import com.example.technpractiseandroid.user.Task
-import com.google.firebase.firestore.DocumentReference
+import com.example.technpractiseandroid.model.Task
 import com.google.firebase.firestore.QuerySnapshot
 
 interface TaskRepository {
@@ -19,5 +18,19 @@ interface TaskRepository {
 
     suspend fun getTasksSize(currentUserId: String,
                              size:MutableLiveData<Int>): QuerySnapshot
+
+    suspend fun getTasksSizeForCount(currentUserId: String, size:MutableLiveData<Int>): QuerySnapshot
+
+    suspend fun getTasksCountByImportanceTagImportant(
+        currentUserId: String,
+        size:MutableLiveData<Int>): QuerySnapshot
+
+    suspend fun getTasksCountByImportanceTagMedium(
+        currentUserId: String,
+        size:MutableLiveData<Int>): QuerySnapshot
+
+    suspend fun getTasksCountByImportanceTagLight(
+        currentUserId: String,
+        size:MutableLiveData<Int>): QuerySnapshot
 
 }

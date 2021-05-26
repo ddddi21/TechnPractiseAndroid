@@ -5,9 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
+import androidx.lifecycle.*
 import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
 import com.example.technpractiseandroid.auth.login.LoginVM
@@ -16,21 +14,23 @@ import com.example.technpractiseandroid.base.navigationController
 import com.example.technpractiseandroid.databinding.HomePageFragmentBinding
 import com.example.technpractiseandroid.databinding.SignInFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class HomeScreenFragment: BaseFragment<HomeScreenVM>() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var vm: HomeScreenVM
+    lateinit var homeVM: HomeScreenVM
 
     lateinit var binding: HomePageFragmentBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         MyMainApplication.appComponent.inject(this)
-        vm = ViewModelProvider(this, viewModelFactory).get(HomeScreenVM::class.java)
-//        vm.mAuth.addAuthStateListener(vm.firebaseAuthListener)
+        homeVM = ViewModelProvider(this, viewModelFactory).get(HomeScreenVM::class.java)
+        homeVM.randomSupport()
         super.onCreate(savedInstanceState)
     }
 
@@ -41,16 +41,23 @@ class HomeScreenFragment: BaseFragment<HomeScreenVM>() {
     ): View? {
         val binding = HomePageFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        binding.vm = vm
+        binding.vm = homeVM
+        homeVM.apply {
+            loadTasksCount()
+            loadTasksCountByImportanceImportant()
+            loadTasksCountByImportanceMedium()
+            loadTasksCountByImportanceLight()
+        }
         return binding.root
 
     }
-    //TODO(fix user setting delay)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm.setUsername()
+        homeVM.setUsername()
     }
+
+
 
 
 }

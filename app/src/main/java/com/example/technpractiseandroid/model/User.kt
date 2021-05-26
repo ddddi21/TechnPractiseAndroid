@@ -1,4 +1,4 @@
-package com.example.technpractiseandroid.user
+package com.example.technpractiseandroid.model
 
 data class User (
     var userUid:String,

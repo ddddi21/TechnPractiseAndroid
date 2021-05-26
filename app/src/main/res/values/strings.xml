@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">TechnPractiseAndroid</string>
+    <string name="word_1">Instead of giving yourself a reason why you can’t, give yourself a reason why you can.</string>
+    <string name="word_2">Practice like you’ve never won. Perform like you’ve never lost</string>
+    <string name="word_3">Don’t let how you feel make you forget what you deserve.</string>
+    <string name="word_4">Next to trying and winning, the best thing is trying and failing</string>
+    <string name="word_5">Everything you need to accomplish your goals is already in you</string>
+    <string name="word_6">It always seems impossible until it is done</string> <!--    как время на этот проект например..-->
+    <string name="word_7">You’re allowed to scream, you’re allowed to cry, but do not give up.</string>
+    <string name="word_8">Sometimes, you have to get knocked down lower than you have ever been to stand back up taller than you ever were.</string>
+    <string name="word_9">When you feel like giving up, remember why you held on for so long in the first place</string>
+    <string name="word_10">There’s much more ahead of you. You’ll get through this</string>
+    <string name="word_11">If you’re not making mistakes, then you’re not making decisions</string>
+    <string name="word_12">Take a deep breath, it’s just a bad day not a bad life</string>
+    <string name="word_13">Believe you can and you are halfway there</string>
+    <string name="word_14">Sometimes when you are in a dark place you think you have been buried, but actually you have been planted</string>
+    <string name="word_15">Hey, little fighter, soon things will be brighter</string>
+
 </resources>

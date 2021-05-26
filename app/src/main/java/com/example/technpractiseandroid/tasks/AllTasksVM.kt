@@ -1,12 +1,11 @@
 package com.example.technpractiseandroid.tasks
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.technpractiseandroid.interactors.TasksInteractor
-import com.example.technpractiseandroid.user.Task
+import com.example.technpractiseandroid.model.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch

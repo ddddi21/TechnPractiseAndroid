@@ -1,8 +1,5 @@
-package com.example.technpractiseandroid.repository.interfaces
+package com.example.technpractiseandroid.repository
 
-import android.content.res.Resources
-import androidx.compose.ui.res.stringResource
-import com.example.technpractiseandroid.R
 import com.example.technpractiseandroid.model.Word
 
 

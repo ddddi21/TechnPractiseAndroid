@@ -1,5 +1,6 @@
 package com.example.technpractiseandroid.helpers
 import java.text.SimpleDateFormat
+import java.time.Month
 import java.util.*
 
 enum class DateFormatHelper(private val format: String, private val utcFixed: Boolean = false) {
@@ -32,6 +33,9 @@ enum class DateFormatHelper(private val format: String, private val utcFixed: Bo
     fun format(date: Date): String = formatter.format(date)
 
     fun formatCalendar(calendar: Calendar): String = formatter.format(calendar.time)
+
+//    fun translateMineToNormalDateFormat(date: String): {
+//    }
 }
 
 private val RUSSIA by lazy { Locale("ru", "RU") }

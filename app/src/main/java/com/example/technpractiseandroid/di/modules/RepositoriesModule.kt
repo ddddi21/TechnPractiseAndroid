@@ -1,11 +1,10 @@
 package com.example.technpractiseandroid.di.modules
 
-import android.content.Context
 import com.example.technpractiseandroid.repository.impl.TaskRepositoryImpl
 import com.example.technpractiseandroid.repository.impl.UserRepositoryImpl
 import com.example.technpractiseandroid.repository.interfaces.TaskRepository
 import com.example.technpractiseandroid.repository.interfaces.UserRepository
-import com.example.technpractiseandroid.repository.interfaces.WordRepository
+import com.example.technpractiseandroid.repository.WordRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module

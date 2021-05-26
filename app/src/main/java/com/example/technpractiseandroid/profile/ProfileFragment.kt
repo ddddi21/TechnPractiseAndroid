@@ -11,6 +11,8 @@ import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.auth.login.LoginVM
 import com.example.technpractiseandroid.base.BaseFragment
 import com.example.technpractiseandroid.base.MainActivity
+import com.example.technpractiseandroid.base.startApp
+import com.example.technpractiseandroid.base.startLoginActivity
 import com.example.technpractiseandroid.databinding.ProfileFragmentBinding
 import com.example.technpractiseandroid.databinding.SignInFragmentBinding
 import javax.inject.Inject
@@ -35,6 +37,10 @@ class ProfileFragment: BaseFragment<ProfileVm>() {
         val binding = ProfileFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = profileVM
+        binding.logOut.setOnClickListener {
+            profileVM.logOut()
+            activity?.startLoginActivity()
+        }
         return binding.root
 
     }

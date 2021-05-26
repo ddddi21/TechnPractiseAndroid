@@ -108,8 +108,9 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="@={vm.tasksCountString}"
-                    android:textSize="16sp"
+                    android:textSize="21sp"
                     android:layout_marginStart="180dp"
+                    tools:text="5"
                     app:layout_constraintEnd_toEndOf="parent" />"
             </LinearLayout>
 
@@ -147,6 +148,7 @@
                     android:layout_marginEnd="24dp"
                     android:text="@={vm.tasksCountFastString}"
                     android:textSize="16sp"
+                    tools:text="5"
                     app:layout_constraintEnd_toEndOf="parent" />
             </LinearLayout>
 
@@ -184,6 +186,7 @@
                     android:layout_marginEnd="24dp"
                     android:text="@={vm.tasksCountLightString}"
                     android:textSize="16sp"
+                    tools:text="5"
                     app:layout_constraintEnd_toEndOf="parent" />
             </LinearLayout>
 
@@ -221,6 +224,7 @@
                     android:layout_marginEnd="24dp"
                     android:text="@={vm.tasksCountMediumString}"
                     android:textSize="16sp"
+                    tools:text="5"
                     app:layout_constraintEnd_toEndOf="parent" />
             </LinearLayout>
 

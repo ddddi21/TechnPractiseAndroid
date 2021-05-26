@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.technpractiseandroid.helpers.DateFormatHelper
 import com.example.technpractiseandroid.interactors.TasksInteractor
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -33,22 +34,16 @@ var tasksInteractor: TasksInteractor
     var isImportnantTagSelected = MutableLiveData<Boolean>(false)
     var taskCreatingErrorMessage = MutableLiveData<String>()
 
+    var selectedDay = MutableLiveData<Int>()
+    var selectedMonth = MutableLiveData<Int>()
+    var selectedYear = MutableLiveData<Int>()
+
+    var dateHelper: DateFormatHelper ?= null
+
     var date: String ?= null
     var time: String ?= null
 
     private val taskSize = MutableLiveData<Int>()
-//    init {
-//        getListSize()
-//    }
-//
-//    fun getListSize() {
-//        db.collection(
-//            mAuth.currentUser!!.uid
-//        ).get().addOnSuccessListener {
-//            taskSize.value = it.size()
-//        }
-//    }
-
 
 
     fun createTask(){
@@ -92,7 +87,6 @@ var tasksInteractor: TasksInteractor
         var dateTime = taskDueTo.value?.split(",")?.toTypedArray()
         date = dateTime?.get(0)
         time = dateTime?.get(1)
-
     }
 
 

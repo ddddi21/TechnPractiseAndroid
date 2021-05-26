@@ -3,11 +3,9 @@ package com.example.technpractiseandroid.main
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.technpractiseandroid.interactors.TasksInteractor
-import com.example.technpractiseandroid.repository.interfaces.WordRepository
+import com.example.technpractiseandroid.repository.WordRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

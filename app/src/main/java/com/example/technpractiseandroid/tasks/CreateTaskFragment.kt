@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
@@ -28,6 +29,8 @@ class CreateTaskFragment: BaseFragment<CreateTaskVM>() {
     var dateAndTime = Calendar.getInstance()
     var currentDateTime: TextView?= null
 
+
+
     var tagWork : Button?= null
     var tagHome : Button?= null
     var tagFamily : Button?= null
@@ -43,7 +46,7 @@ class CreateTaskFragment: BaseFragment<CreateTaskVM>() {
 
 
     // установка обработчика выбора времени
-    var t =
+    var timeSetListener =
         TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
             dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
             dateAndTime.set(Calendar.MINUTE, minute)
@@ -51,7 +54,7 @@ class CreateTaskFragment: BaseFragment<CreateTaskVM>() {
         }
 
     // установка обработчика выбора даты
-    var d =
+    var dateSetListener =
         DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             dateAndTime.set(Calendar.YEAR, year)
             dateAndTime.set(Calendar.MONTH, monthOfYear)
@@ -192,19 +195,23 @@ class CreateTaskFragment: BaseFragment<CreateTaskVM>() {
     fun setDate(v: View?) {
         context?.let {
             DatePickerDialog(
-                it, d,
+                it, dateSetListener,
                 dateAndTime.get(Calendar.YEAR),
                 dateAndTime.get(Calendar.MONTH),
                 dateAndTime.get(Calendar.DAY_OF_MONTH)
-            )
-                .show()
+            ).apply {
+                show()
+                createTaskVM.selectedDay.value = this.datePicker.dayOfMonth
+                createTaskVM.selectedMonth.value = this.datePicker.month
+                createTaskVM.selectedYear.value = this.datePicker.year
+            }
         }
     }
 
     // отображаем диалоговое окно для выбора времени
     fun setTime(v: View?) {
         TimePickerDialog(
-            context, t,
+            context, timeSetListener,
             dateAndTime.get(Calendar.HOUR_OF_DAY),
             dateAndTime.get(Calendar.MINUTE), true
         )

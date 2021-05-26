@@ -25,8 +25,7 @@ import timber.log.Timber
 
 
 class StartAuthFragment: BaseFragment<StartAuthVM>() {
-    //спросить, сюда ли или в вм (наверное сюда)
-//    private var mAuth: FirebaseAuth?= null
+
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

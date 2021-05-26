@@ -8,4 +8,4 @@ data class Task (
     var importance:String,
     var date: String,
     var time :String
-        )
+    )

@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.technpractiseandroid.interactors.TasksInteractor
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 class CreateTaskVM @Inject constructor(
 var db: FirebaseFirestore,
-var mAuth: FirebaseAuth
+var mAuth: FirebaseAuth,
+var tasksInteractor: TasksInteractor
 ) : ViewModel() {
     val taskDueTo = MutableLiveData(String())
     var taskName = MutableLiveData(String())
@@ -29,24 +31,23 @@ var mAuth: FirebaseAuth
 
     var selectedImportantTag = MutableLiveData<String>()
     var isImportnantTagSelected = MutableLiveData<Boolean>(false)
-    var taskCreatingErrorMessage: String ?= null
+    var taskCreatingErrorMessage = MutableLiveData<String>()
 
     var date: String ?= null
     var time: String ?= null
 
 
     fun createTask(){
-        taskCreatingErrorMessage = ""
         if(taskName.value.isNullOrEmpty()){
-            taskCreatingErrorMessage = "Empty task name"
+            taskCreatingErrorMessage.value = "Empty task name"
             return
         } else {
             if (isImportnantTagSelected.value == false) {
-                taskCreatingErrorMessage = "Choose importance of the task"
+                taskCreatingErrorMessage.value = "Choose importance of the task"
                 return
             } else {
                 if (taskDueTo.value.isNullOrEmpty()) {
-                    taskCreatingErrorMessage = "Specify the deadline for your task"
+                    taskCreatingErrorMessage.value = "Specify the deadline for your task"
                     return
                 } else {
                     parseDateAndTime()
@@ -60,17 +61,20 @@ var mAuth: FirebaseAuth
                         "date" to date,
                         "time" to time
                     )
-                    viewModelScope.launch(Dispatchers.Main) {
-                        db.collection("tasks")
-                            .add(task)
-                            .addOnSuccessListener {
-                                Log.d("find bug", "DocumentSnapshot added")
-                            }
-                            .addOnFailureListener { e ->
-                                Log.w("find bug", "Error adding document", e)
-                                taskCreatingErrorMessage = "something wrong"
-                            }
+                    viewModelScope.launch {
+                        tasksInteractor.createTask(task = task, taskCreatingErrorMessage = taskCreatingErrorMessage)
                     }
+//                    viewModelScope.launch(Dispatchers.Main) {
+//                        db.collection("tasks")
+//                            .add(task)
+//                            .addOnSuccessListener {
+//                                Log.d("find bug", "DocumentSnapshot added")
+//                            }
+//                            .addOnFailureListener { e ->
+//                                Log.w("find bug", "Error adding document", e)
+//                                taskCreatingErrorMessage = "something wrong"
+//                            }
+//                    }
                 }
 
             }

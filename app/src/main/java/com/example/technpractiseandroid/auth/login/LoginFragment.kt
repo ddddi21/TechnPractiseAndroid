@@ -3,6 +3,7 @@ package com.example.technpractiseandroid.auth.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
@@ -56,49 +58,38 @@ class LoginFragment: BaseFragment<LoginVM>() {
         }
 
         binding.btnSignUpEnter.setOnClickListener {
-            successLogin()
-//            if(loginVM.validForm()){
-//                return@setOnClickListener
-//            } else {
-//                if (!loginVM.loginErrorMessage.isEmpty()) {
-//                    Toast.makeText(context, loginVM.loginErrorMessage, Toast.LENGTH_SHORT).show()
-//                } else {
-//                    activity?.startApp()
-//                }
-//            }
-        }
-//        enterBtn.setOnClickListener {
-//            errorMessages(view as ViewGroup)
-//            if(!isHaveError){
-//                viewModel.onRegistrationClick()
-//            }
-//        }
-        return binding.root
-    }
-//
-//    suspend fun login(): Unit =
-//        suspendCancellableCoroutine { cont->
-//            try{
-//                loginVM.isDone()
-//                cont.resume(Unit)
-//            } catch (e: Throwable) {
-//                cont.resumeWithException(e)
-//            } }
-
-    fun successLogin() = CoroutineScope(Job()).
-        launch(Dispatchers.Main) {
-                loginVM.onLoginClick()
-                binding.tiSignUpUsername.error = loginVM.emailError.value
-                binding.tiSignUpPassword.error = loginVM.passwordError.value
-            if(!loginVM.validForm()) {
-                    if (!loginVM.loginErrorMessage.value.isNullOrEmpty()) {
-                        Toast.makeText(context, loginVM.loginErrorMessage.value, Toast.LENGTH_SHORT)
+                successLogin()
+            val nevalid = loginVM.validForm()
+            if (nevalid) {
+                return@setOnClickListener
+            } else {
+                lifecycleScope.launch {
+                    try {
+                            loginVM.userInteractor.login(loginVM.email.value.toString(),
+                                loginVM.password.value.toString(),
+                                loginVM.loginErrorMessage)
+                        if(!loginVM.loginErrorMessage.value.isNullOrEmpty()){
+                            Toast.makeText(context, loginVM.loginErrorMessage.value, Toast.LENGTH_SHORT)
+                                .show()
+                        } else{
+                            activity?.startApp()
+                        }
+                    } catch (throwable: Throwable){
+                        Toast.makeText(context, throwable.message.toString(), Toast.LENGTH_SHORT)
                             .show()
-                    } else {
-                        activity?.startApp()
+                        Log.d("find bug", throwable.message.toString())
                     }
                 }
-        }
+            }
+            }
+        return binding.root
+    }
+
+    fun successLogin() {
+            loginVM.onLoginClick()
+            binding.tiSignUpUsername.error = loginVM.emailError.value
+            binding.tiSignUpPassword.error = loginVM.passwordError.value
+    }
 
     private fun onRegistration(){
         navigationController.navigate(R.id.action_loginFragment_to_registrationFragment)

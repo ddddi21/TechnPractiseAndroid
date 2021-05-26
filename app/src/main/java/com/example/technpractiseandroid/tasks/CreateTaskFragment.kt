@@ -81,10 +81,15 @@ class CreateTaskFragment: BaseFragment<CreateTaskVM>() {
         }
         binding.btnCreateTaskDone.setOnClickListener {
             createTaskIsDone()
-            if(createTaskVM.taskCreatingErrorMessage.isNullOrEmpty()){
-                Toast.makeText(context,"task added", Toast.LENGTH_SHORT).show()
+            var toast: Toast ?= null
+            if(createTaskVM.taskCreatingErrorMessage.value.isNullOrEmpty()){
+                toast = Toast.makeText(context,"task added", Toast.LENGTH_SHORT)
+                toast.view?.setBackgroundResource(R.color.divider_grey)
+                toast.show()
             }else{
-                Toast.makeText(context,createTaskVM.taskCreatingErrorMessage, Toast.LENGTH_SHORT).show()
+                toast = Toast.makeText(context,createTaskVM.taskCreatingErrorMessage.value, Toast.LENGTH_SHORT)
+                toast.view?.setBackgroundResource(R.color.divider_grey)
+                toast.show()
             }
         }
         return binding.root

@@ -8,6 +8,7 @@ class MyMainApplication: Application() {
     lateinit var mainApplicationInstance: MyMainApplication
     companion object{
         lateinit var appComponent: MainAppComponent
+//        lateinit var authComponent: AuthComponent
     }
 
 
@@ -27,6 +28,7 @@ class MyMainApplication: Application() {
              appComponent = DaggerMainAppComponent.builder()
                 .application(app)
                 .build()
+//             authComponent = Dagger
     }
 
 //    fun authComponent() = appComponent.authComponent().create()

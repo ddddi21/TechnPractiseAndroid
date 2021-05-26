@@ -14,7 +14,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
 import com.example.technpractiseandroid.databinding.ActivityMainBinding
-import com.example.technpractiseandroid.some.AppBarItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 

@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.technpractiseandroid.base.startApp
+import com.example.technpractiseandroid.interactors.UserInteractor
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -32,48 +33,22 @@ import javax.inject.Inject
 
 
 class LoginVM @Inject constructor(
-        private val mAuth: FirebaseAuth, application: Application
-):AndroidViewModel(application){
+        private val mAuth: FirebaseAuth,
+        var userInteractor: UserInteractor
+):ViewModel(){
         val email = MutableLiveData("")
         val password = MutableLiveData("")
         val emailError = MutableLiveData("")
         val passwordError = MutableLiveData("")
 
         var loginErrorMessage = MutableLiveData<String>()
+        var isHaveError = false
+        var currentUserId: String ?= null
 
         var task: Task<AuthResult>?= null
-        var isDone = MutableLiveData(false)
-        var isHaveError = true
-        val mutex = Mutex()
 
-
-
-
-
-        //если неверный пароль тоже не заходит в блок else
-         suspend fun onLoginClick(){
-        isHaveError = true
-        if(validForm()){
-                return
-        }else {
-                mutex.withLock {
-                task = mAuth.signInWithEmailAndPassword(
-                        email.value.toString(),
-                        password.value.toString()
-                )
-                        .addOnCompleteListener { task: Task<AuthResult> ->
-                                if (task.isSuccessful) {
-
-                                        Log.d("find bug", "login isSuccessful")
-                                } else {
-                                        Log.d("find bug", task?.exception.toString())
-                                        loginErrorMessage.value =
-                                                task?.exception?.message.toString()
-
-                                }
-                        }
-        }
-        }
+        fun onLoginClick(){
+                validForm()
         }
 
 
@@ -107,6 +82,7 @@ class LoginVM @Inject constructor(
         fun clearErrors(){
                 emailError.value = ""
                 passwordError.value = ""
+                loginErrorMessage.value = ""
         }
 
 }

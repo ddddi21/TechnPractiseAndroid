@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
  <data>
@@ -56,8 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
         android:layout_marginTop="64dp"
+        android:layout_marginRight="48dp"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.071"
@@ -69,10 +70,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="password"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true"
             android:text="@={vm.password}"
-            android:inputType="textEmailAddress"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,5 +100,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_sign_up_enter" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:layout_marginBottom="37dp"
+        android:text="@={vm.loginErrorMessage}"
+        android:textSize="8sp"
+        android:textColor="@color/red"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sign_up_enter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ti_sign_up_password" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

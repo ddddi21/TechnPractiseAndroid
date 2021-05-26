@@ -1,65 +1,73 @@
 package com.example.technpractiseandroid.repository.impl
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.technpractiseandroid.helpers.Result
-import com.example.technpractiseandroid.helpers.await
-import com.example.technpractiseandroid.repository.UserRepository
-import com.example.technpractiseandroid.user.User
+import com.example.technpractiseandroid.repository.interfaces.UserRepository
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
+import kotlin.coroutines.resume
 
-class UserRepositoryImpl : UserRepository {
-    override suspend fun registerUserFromAuthWithEmailAndPassword(
-        email: String,
-        password: String,
-        mAuth:FirebaseAuth
-    ): Result<FirebaseUser?> {
-        try
-        {
-            return when(val resultDocumentSnapshot = mAuth?.createUserWithEmailAndPassword(email, password)?.await())
-            {
-                is Result.Success -> {
-                    Log.i("find bug", "Result.Success")
-                    val firebaseUser = resultDocumentSnapshot.data.user
+class UserRepositoryImpl (
+    private val mAuth: FirebaseAuth
+) : UserRepository {
+    @InternalCoroutinesApi
+    override suspend fun registration(email: String, password:String,
+                                      registrationErrorMessage:MutableLiveData<String>): AuthResult =
+        suspendCancellableCoroutine { continuation ->
+            mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnSuccessListener{
+                    Timber.d("createUserWithEmail:success")
                     val user = mAuth.currentUser
                     user?.sendEmailVerification()
-                    Result.Success(firebaseUser)
+                    continuation.resume(it)
                 }
-                is Result.Error -> {
-                    Log.e("find bug", "${resultDocumentSnapshot.exception}")
-                    Result.Error(resultDocumentSnapshot.exception)
+                .addOnFailureListener{
+                    Log.d("reg", it.toString())
+                    registrationErrorMessage.value = it.message.toString()
+                    continuation.tryResumeWithException(it)
                 }
-                is Result.Canceled ->  {
-                    Log.e("find bug", "${resultDocumentSnapshot.exception}")
-                    Result.Canceled(resultDocumentSnapshot.exception)
+        }
+
+
+    @InternalCoroutinesApi
+    override suspend fun login(email: String, password:String,
+                               loginErrorMessage: MutableLiveData<String>): Task<AuthResult> =
+        suspendCancellableCoroutine { continuation ->
+         var task = mAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task: Task<AuthResult> ->
+                if (task.isSuccessful) {
+                    Log.d("find bug", "login isSuccessful")
+                    continuation.resume(task)
+                } else {
+                    Log.d("find bug", task?.exception.toString())
+                    loginErrorMessage.value =
+                        task.exception?.message.toString()
+                    continuation.tryResumeWithException(exception = task.exception!!)
                 }
             }
-        }
-        catch (exception: Exception)
-        {
-            return Result.Error(exception)
-        }
     }
 
-
-    override fun addUserInfo(mAuth:FirebaseAuth, username: MutableLiveData<String>){
+    @InternalCoroutinesApi
+    override suspend fun addUserInfo(username: MutableLiveData<String>):Void =
+        suspendCancellableCoroutine { continuation ->
         var currentUser = mAuth.currentUser
+
         val profileUpdates = userProfileChangeRequest {
             displayName = username.value.toString()
         }
 
         currentUser?.updateProfile(profileUpdates)
-            ?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
+            ?.addOnSuccessListener { task ->
                     Timber.d("User profile updated.")
-                }
+                    continuation.resume(task)
             }
-    }
-    override suspend fun createUserInFirestore(user: User): Result<Void?> {
-        TODO("Not yet implemented")
+            ?.addOnFailureListener{
+                continuation.tryResumeWithException(it)
+            }
     }
 }

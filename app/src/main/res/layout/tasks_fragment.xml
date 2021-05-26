@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="com.example.technpractiseandroid.tasks.AllTasksVM" />
@@ -17,11 +18,17 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:progressTint="@color/bottom"
+        android:backgroundTint="@color/bottom"
+        android:visibility="@{vm.visible ? View.VISIBLE : View.INVISIBLE}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:indeterminate="true"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        tools:visibility="visible"
+        tools:indeterminateTint="@color/bottom"/>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"

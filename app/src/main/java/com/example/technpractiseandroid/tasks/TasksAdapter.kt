@@ -2,11 +2,8 @@ package com.example.technpractiseandroid.tasks
 
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.technpractiseandroid.R
 import com.example.technpractiseandroid.databinding.ItemTaskBinding
 import com.example.technpractiseandroid.user.Task
 

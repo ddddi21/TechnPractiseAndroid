@@ -5,6 +5,7 @@ import android.content.Context
 import com.example.technpractiseandroid.MyMainApplication
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Named
 
 import javax.inject.Singleton
@@ -17,10 +18,10 @@ class MainAppModule {
     @Provides
     fun provideContext(application: Application): Context = application.applicationContext
 
-//    @Provides
-//    @Singleton
-//    @Named("IO")
-//    fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
+    @Provides
+    @Singleton
+    @Named("IO")
+    fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
 
 //    @Singleton
 //    @Provides

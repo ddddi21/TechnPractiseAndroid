@@ -2,6 +2,7 @@ package com.example.technpractiseandroid.auth.registration
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
 import com.example.technpractiseandroid.auth.login.LoginVM
@@ -39,9 +42,6 @@ class RegistrationFragment: BaseFragment<RegistrationVM>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         MyMainApplication.appComponent.inject(fragment = this@RegistrationFragment)
         registrationVM = ViewModelProvider(this, viewModelFactory).get(RegistrationVM::class.java)
-
-//        if(mAuth != null)
-//        navigate to login
         super.onCreate(savedInstanceState)
     }
 
@@ -64,11 +64,22 @@ class RegistrationFragment: BaseFragment<RegistrationVM>() {
             if (nevalid){
                 return@setOnClickListener
             } else {
-                if(!registrationVM.registrationErrorMessage.isEmpty()){
-                    Toast.makeText(context, registrationVM.registrationErrorMessage, Toast.LENGTH_SHORT).show()
-                } else{
-                    activity?.startApp()
-                    Toast.makeText(context, "Please, confirm your account at ${registrationVM.email.value}", Toast.LENGTH_SHORT).show()
+                lifecycleScope.launch {
+                    try {
+                            registrationVM.userInteractor.createUser(
+                                registrationVM.email.value.toString(),
+                                registrationVM.password.value.toString(),
+                                registrationVM.registrationErrorMessage)
+                        registrationVM.userInteractor.addUserInfo(registrationVM.username)
+                        if(!registrationVM.registrationErrorMessage.value.isNullOrEmpty()){
+                            Toast.makeText(context, registrationVM.registrationErrorMessage.value, Toast.LENGTH_SHORT).show()
+                        } else{
+                            activity?.startApp()
+                            Toast.makeText(context, "Please, confirm your account at ${registrationVM.email.value}", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (throwable: Throwable){
+                        Log.d("find bug", throwable.message.toString())
+                    }
                 }
             }
        }
@@ -77,14 +88,12 @@ class RegistrationFragment: BaseFragment<RegistrationVM>() {
     }
 
 
-    fun createAccount()= runBlocking {
-        launch {
+    fun createAccount() {
             registrationVM.onRegistrationClick()
             binding.tiSignUpEmail.error = registrationVM.emailError.value
             binding.tiSignUpUsername.error = registrationVM.usernameError.value
             binding.tiSignUpPassword.error = registrationVM.passwordError.value
         }
-    }
 
     private fun onLogin(){
         navigationController.navigate(R.id.action_registrationFragment_to_loginFragment)

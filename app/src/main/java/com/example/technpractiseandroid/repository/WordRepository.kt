@@ -4,7 +4,7 @@ import com.example.technpractiseandroid.model.Word
 
 
 object WordRepository {
-    var words = ArrayList<Word>()
+    private var words = ArrayList<Word>()
 
     fun getWordById(id:Int): Word?{
         words.forEach{

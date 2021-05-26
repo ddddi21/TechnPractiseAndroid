@@ -2,6 +2,7 @@ package com.example.technpractiseandroid.tasks
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.LayoutInflater
@@ -9,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.technpractiseandroid.MyMainApplication
 import com.example.technpractiseandroid.R
@@ -20,29 +20,28 @@ import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 
-class CreateTaskFragment: BaseFragment<CreateTaskVM>() {
+class CreateTaskFragment : BaseFragment<CreateTaskVM>() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     lateinit var createTaskVM: CreateTaskVM
 
     var dateAndTime = Calendar.getInstance()
-    var currentDateTime: TextView?= null
+    var currentDateTime: TextView? = null
 
 
+    var tagWork: Button? = null
+    var tagHome: Button? = null
+    var tagFamily: Button? = null
+    var tagMeeting: Button? = null
+    var tagHealth: Button? = null
+    var tagFun: Button? = null
+    var tag: Button? = null
 
-    var tagWork : Button?= null
-    var tagHome : Button?= null
-    var tagFamily : Button?= null
-    var tagMeeting : Button?= null
-    var tagHealth : Button?= null
-    var tagFun : Button?= null
-    var tag: Button?= null
-
-    var tagFast : Button?= null
-    var tagMedium : Button?= null
-    var tagCanWait : Button?= null
-    var tagW: Button?= null
+    var tagFast: Button? = null
+    var tagMedium: Button? = null
+    var tagCanWait: Button? = null
+    var tagW: Button? = null
 
 
     // установка обработчика выбора времени
@@ -61,6 +60,7 @@ class CreateTaskFragment: BaseFragment<CreateTaskVM>() {
             dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             setInitialDateTime()
         }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         MyMainApplication.appComponent.inject(this)
         createTaskVM = ViewModelProvider(this, viewModelFactory).get(CreateTaskVM::class.java)
@@ -71,27 +71,35 @@ class CreateTaskFragment: BaseFragment<CreateTaskVM>() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = CreateTaskFragmentBinding.inflate(inflater, container, false)
         currentDateTime = binding.currentDate
         binding.lifecycleOwner = this
         binding.vm = createTaskVM
-        binding.onDateClick.setOnClickListener{
+        binding.onDateClick.setOnClickListener {
             setDate(view)
         }
-        binding.onTimeClick.setOnClickListener{
+        binding.onTimeClick.setOnClickListener {
             setTime(view)
         }
         binding.btnCreateTaskDone.setOnClickListener {
             createTaskIsDone()
-            var toast: Toast ?= null
-            if(createTaskVM.taskCreatingErrorMessage.value.isNullOrEmpty()){
-                toast = Toast.makeText(context,"task added", Toast.LENGTH_SHORT)
+            var toast: Toast?
+            if (createTaskVM.taskCreatingErrorMessage.value.isNullOrEmpty()) {
+                toast = Toast.makeText(context, "task added", Toast.LENGTH_SHORT)
                 toast.view?.setBackgroundResource(R.color.divider_grey)
+                val tv = toast.view?.findViewById<TextView>(android.R.id.message)
+                tv?.setTextColor(Color.parseColor("#711547"))
                 toast.show()
-            }else{
-                toast = Toast.makeText(context,createTaskVM.taskCreatingErrorMessage.value, Toast.LENGTH_SHORT)
+            } else {
+                toast = Toast.makeText(
+                    context,
+                    createTaskVM.taskCreatingErrorMessage.value,
+                    Toast.LENGTH_SHORT
+                )
                 toast.view?.setBackgroundResource(R.color.divider_grey)
+                val tv = toast.view?.findViewById<TextView>(android.R.id.message)
+                tv?.setTextColor(Color.parseColor("#711547"))
                 toast.show()
             }
         }
@@ -103,19 +111,20 @@ class CreateTaskFragment: BaseFragment<CreateTaskVM>() {
             createTaskVM.createTask()
         }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initCategories(view as ViewGroup)
         setInitialDateTime()
     }
 
-    fun initCategories(root: ViewGroup){
-         tagWork = root.findViewById(R.id.btn_create_task_work)
-         tagHome = root.findViewById(R.id.btn_create_task_home)
-         tagFamily = root.findViewById(R.id.btn_create_task_family)
-         tagMeeting = root.findViewById(R.id.btn_create_task_meeting)
-         tagHealth = root.findViewById(R.id.btn_create_task_health)
-         tagFun = root.findViewById(R.id.btn_create_task_fun)
+    fun initCategories(root: ViewGroup) {
+        tagWork = root.findViewById(R.id.btn_create_task_work)
+        tagHome = root.findViewById(R.id.btn_create_task_home)
+        tagFamily = root.findViewById(R.id.btn_create_task_family)
+        tagMeeting = root.findViewById(R.id.btn_create_task_meeting)
+        tagHealth = root.findViewById(R.id.btn_create_task_health)
+        tagFun = root.findViewById(R.id.btn_create_task_fun)
 
         tagFast = root.findViewById(R.id.btn_create_task_fast)
         tagMedium = root.findViewById(R.id.btn_create_task_medium)

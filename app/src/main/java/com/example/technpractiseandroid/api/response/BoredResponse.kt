@@ -2,7 +2,7 @@ package com.example.technpractiseandroid.api.response
 
 import com.google.gson.annotations.SerializedName
 
-data class BoredResponse (
+data class BoredResponse(
 
     @SerializedName("activity")
     val activity: String,
@@ -24,4 +24,4 @@ data class BoredResponse (
 
     @SerializedName("link")
     val link: String
-    )
+)

@@ -12,9 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
 import javax.inject.Singleton
-import kotlin.coroutines.CoroutineContext
 
 @Module
 class RepositoriesModule {
@@ -22,9 +20,8 @@ class RepositoriesModule {
     @Provides
     @Singleton
     fun provideTaskRepo(
-        db: FirebaseFirestore,
-        @Named("IO")coroutineContext: CoroutineContext
-    ): TaskRepository = TaskRepositoryImpl(db, coroutineContext)
+        db: FirebaseFirestore
+    ): TaskRepository = TaskRepositoryImpl(db)
 
     @Provides
     @Singleton

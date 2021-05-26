@@ -13,7 +13,7 @@ class HomeScreenVM @Inject constructor(
     val mAuth: FirebaseAuth,
     var wordRepository: WordRepository,
     val tasksInteractor: TasksInteractor
-): ViewModel(){
+) : ViewModel() {
     var words = MutableLiveData<String>()
     val username = MutableLiveData("")
 
@@ -43,7 +43,7 @@ class HomeScreenVM @Inject constructor(
     }
 
     val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-        if(firebaseAuth.currentUser != null){
+        if (firebaseAuth.currentUser != null) {
             currentUser.value = firebaseAuth.currentUser
             Log.d("find bug", "${firebaseAuth.currentUser}")
             username.value = "Hello ${firebaseAuth.currentUser!!.displayName}"
@@ -54,24 +54,24 @@ class HomeScreenVM @Inject constructor(
         mAuth.addAuthStateListener(authStateListener)
     }
 
-    fun loadTasksCount(){
+    fun loadTasksCount() {
         viewModelScope.launch {
-            try{
+            try {
                 mAuth.currentUser?.let {
-                tasksInteractor.getTasksSizeForCount(it.uid, tasksCountInt)
-                tasksCountString.value = tasksCountInt.value.toString()
+                    tasksInteractor.getTasksSizeForCount(it.uid, tasksCountInt)
+                    tasksCountString.value = tasksCountInt.value.toString()
                     isVisibleProgress.value = true
                     Log.d("find bug", "tasks count home page #${tasksCountString.value}")
                 }
-            } catch(throwable: Throwable) {
-                 Log.d("find bug", throwable.message.toString())
-        } finally {
-            isVisibleProgress.value = false
+            } catch (throwable: Throwable) {
+                Log.d("find bug", throwable.message.toString())
+            } finally {
+                isVisibleProgress.value = false
             }
         }
     }
 
-    fun loadTasksCountByImportanceImportant(){
+    fun loadTasksCountByImportanceImportant() {
         viewModelScope.launch {
             try {
                 mAuth.currentUser?.let {
@@ -79,13 +79,13 @@ class HomeScreenVM @Inject constructor(
                     tasksCountFastString.value = tasksCountFastInt.value.toString()
                     Log.d("find bug", "fast tasks home page #${tasksCountFastString.value}")
                 }
-            } catch(throwable: Throwable) {
+            } catch (throwable: Throwable) {
                 Log.d("find bug", throwable.message.toString())
             }
         }
     }
 
-    fun loadTasksCountByImportanceMedium(){
+    fun loadTasksCountByImportanceMedium() {
         viewModelScope.launch {
             try {
                 mAuth.currentUser?.let {
@@ -93,13 +93,13 @@ class HomeScreenVM @Inject constructor(
                     tasksCountMediumString.value = tasksCountMediumInt.value.toString()
                     Log.d("find bug", "medium tasks home page #${tasksCountMediumString.value}")
                 }
-            } catch(throwable: Throwable) {
+            } catch (throwable: Throwable) {
                 Log.d("find bug", throwable.message.toString())
             }
         }
     }
 
-    fun loadTasksCountByImportanceLight(){
+    fun loadTasksCountByImportanceLight() {
         viewModelScope.launch {
             try {
                 mAuth.currentUser?.let {
@@ -107,19 +107,19 @@ class HomeScreenVM @Inject constructor(
                     tasksCountLightString.value = tasksCountLightInt.value.toString()
                     Log.d("find bug", "fast tasks home page #${tasksCountLightString.value}")
                 }
-            } catch(throwable: Throwable) {
-            Log.d("find bug", throwable.message.toString())
-        }
+            } catch (throwable: Throwable) {
+                Log.d("find bug", throwable.message.toString())
+            }
         }
     }
 
-    fun randomSupport(){
+    fun randomSupport() {
         val id = (1..15).random()
         Log.d("find bug", "random words #$id")
         val wordsFromRepo = wordRepository.getWordById(id)
-        if (wordsFromRepo != null){
+        if (wordsFromRepo != null) {
             words.value = wordsFromRepo.text
-        } else{
+        } else {
             words.value = "Have a nice day!"
         }
     }

@@ -10,59 +10,77 @@ import kotlin.coroutines.CoroutineContext
 
 class TasksInteractor @Inject constructor(
     private var taskRepository: TaskRepository,
-    @Named("IO")private val context: CoroutineContext
+    @Named("IO") private val context: CoroutineContext
 ) {
-    suspend fun loadTasks(currentUserId: String, myTasks: MutableList<Task>,
-                          tasksList: MutableLiveData<List<Task>>,
-                          errorMessage: MutableLiveData<String>){
-                              withContext(context){
-                                  taskRepository.loadTasks(currentUserId, myTasks, tasksList,
-                                  errorMessage)
-                              }
-                          }
 
-    suspend fun createTask(task: HashMap<String, String?>,
-                           taskCreatingErrorMessage: MutableLiveData<String>,
-                           currentUserId: String, size:MutableLiveData<Int>
+    suspend fun loadTasks(
+        currentUserId: String, myTasks: MutableList<Task>,
+        tasksList: MutableLiveData<List<Task>>,
+        errorMessage: MutableLiveData<String>
     ) {
-        withContext(context){
+        withContext(context) {
+            taskRepository.loadTasks(
+                currentUserId, myTasks, tasksList,
+                errorMessage
+            )
+        }
+    }
+
+    suspend fun createTask(
+        task: HashMap<String, String?>,
+        taskCreatingErrorMessage: MutableLiveData<String>,
+        currentUserId: String, size: MutableLiveData<Int>
+    ) {
+        withContext(context) {
             getTasksSize(currentUserId, size)
             taskRepository.createTask(task, taskCreatingErrorMessage, currentUserId, size)
         }
     }
-    suspend fun deleteTask(currentUserId: String, isError: MutableLiveData<Boolean>,
-                           errorMessage: MutableLiveData<String>, position: Int) {
-        withContext(context){
-            taskRepository.delete(currentUserId,isError, errorMessage, position)
+
+    suspend fun deleteTask(
+        currentUserId: String, isError: MutableLiveData<Boolean>,
+        errorMessage: MutableLiveData<String>, position: Int
+    ) {
+        withContext(context) {
+            taskRepository.delete(currentUserId, isError, errorMessage, position)
         }
     }
 
-    suspend fun getTasksSize(currentUserId: String, size:MutableLiveData<Int>){
-        withContext(context){
-              taskRepository.getTasksSize(currentUserId, size)
+    suspend fun getTasksSize(currentUserId: String, size: MutableLiveData<Int>) {
+        withContext(context) {
+            taskRepository.getTasksSize(currentUserId, size)
         }
     }
 
-    suspend fun getTasksSizeForCount(currentUserId: String, size:MutableLiveData<Int>){
-        withContext(context){
+    suspend fun getTasksSizeForCount(currentUserId: String, size: MutableLiveData<Int>) {
+        withContext(context) {
             taskRepository.getTasksSizeForCount(currentUserId, size)
         }
     }
 
-    suspend fun getTasksCountByImportanceTagImportant(currentUserId: String, size:MutableLiveData<Int>){
-        withContext(context){
+    suspend fun getTasksCountByImportanceTagImportant(
+        currentUserId: String,
+        size: MutableLiveData<Int>
+    ) {
+        withContext(context) {
             taskRepository.getTasksCountByImportanceTagImportant(currentUserId, size)
         }
     }
 
-    suspend fun getTasksCountByImportanceTagMedium(currentUserId: String, size:MutableLiveData<Int>){
-        withContext(context){
+    suspend fun getTasksCountByImportanceTagMedium(
+        currentUserId: String,
+        size: MutableLiveData<Int>
+    ) {
+        withContext(context) {
             taskRepository.getTasksCountByImportanceTagMedium(currentUserId, size)
         }
     }
 
-    suspend fun getTasksCountByImportanceTagLight(currentUserId: String, size:MutableLiveData<Int>){
-        withContext(context){
+    suspend fun getTasksCountByImportanceTagLight(
+        currentUserId: String,
+        size: MutableLiveData<Int>
+    ) {
+        withContext(context) {
             taskRepository.getTasksCountByImportanceTagLight(currentUserId, size)
         }
     }

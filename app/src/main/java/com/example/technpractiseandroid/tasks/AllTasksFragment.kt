@@ -1,6 +1,5 @@
 package com.example.technpractiseandroid.tasks
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,21 +12,17 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.technpractiseandroid.MyMainApplication
-import com.example.technpractiseandroid.auth.login.LoginVM
 import com.example.technpractiseandroid.base.BaseFragment
-import com.example.technpractiseandroid.databinding.SignInFragmentBinding
 import com.example.technpractiseandroid.databinding.TasksFragmentBinding
 import com.example.technpractiseandroid.helpers.SwipeToDeleteCallback
 import javax.inject.Inject
 
-class AllTasksFragment: BaseFragment<AllTasksVM> (){
+class AllTasksFragment : BaseFragment<AllTasksVM>() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     lateinit var allTasksVM: AllTasksVM
     lateinit var binding: TasksFragmentBinding
-
-    private var toast: Toast? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +35,7 @@ class AllTasksFragment: BaseFragment<AllTasksVM> (){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = TasksFragmentBinding.inflate(inflater, container, false)
         binding.apply {
             vm = allTasksVM
@@ -51,13 +46,9 @@ class AllTasksFragment: BaseFragment<AllTasksVM> (){
                 addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
             }
             progressBar.visibility = View.VISIBLE
-            //TODO(fix)
         }
         allTasksVM.tasksList.observe(viewLifecycleOwner) { list ->
-            allTasksVM.apply {
-                taskAdapter.updateDataSource(list)
-                allTasksVM.emptyList()
-            }
+            allTasksVM.taskAdapter.updateDataSource(list)
             binding.progressBar.visibility = View.GONE
         }
         allTasksVM.loadTasks()
@@ -90,13 +81,7 @@ class AllTasksFragment: BaseFragment<AllTasksVM> (){
         itemTouchHelper.attachToRecyclerView(binding.rvTasksList)
     }
 
-    private fun toast(text: String) {
-        toast?.cancel()
-        toast = Toast.makeText(context, text, Toast.LENGTH_SHORT)
-        toast?.show()
-    }
-
-    private fun deleteButton(position: Int) : SwipeToDeleteCallback.UnderlayButton {
+    private fun deleteButton(position: Int): SwipeToDeleteCallback.UnderlayButton {
         return SwipeToDeleteCallback.UnderlayButton(
             requireContext(),
             "Delete",
@@ -108,10 +93,7 @@ class AllTasksFragment: BaseFragment<AllTasksVM> (){
                         deleteTask(position)
                         taskAdapter.removeItem(position)
                         tasksList.observe(viewLifecycleOwner) { list ->
-                            allTasksVM.apply {
-                                taskAdapter.updateDataSource(list)
-                                allTasksVM.emptyList()
-                            }
+                            allTasksVM.taskAdapter.updateDataSource(list)
                         }
                     }
                 }

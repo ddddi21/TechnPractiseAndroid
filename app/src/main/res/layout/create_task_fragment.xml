@@ -8,34 +8,32 @@
             name="vm"
             type="com.example.technpractiseandroid.tasks.CreateTaskVM" />
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="24dp"
             android:gravity="center|top"
             android:text="Create task"
             android:textSize="24sp"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-             />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="80dp"
             android:layout_marginBottom="60dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-        >
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -51,11 +49,11 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.071"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
                     app:layout_constraintStart_toStartOf="parent">
 
                     <androidx.appcompat.widget.AppCompatEditText
@@ -63,14 +61,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:background="@android:color/transparent"
-                        android:hint="task name"
-                        android:text="@={vm.taskName}"
-                        android:paddingStart="16dp"
-                        android:maxLength="30"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
+                        android:background="@android:color/transparent"
+                        android:hint="task name"
+                        android:maxLength="30"
+                        android:paddingStart="16dp"
                         android:singleLine="true"
+                        android:text="@={vm.taskName}"
                         android:textSize="@dimen/textSize" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,9 +82,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:errorEnabled="true"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.071"
                     app:layout_constraintStart_toStartOf="parent">
@@ -96,14 +94,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:background="@android:color/transparent"
-                        android:hint="description"
-                        android:text="@={vm.taskDescription}"
-                        android:paddingStart="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
+                        android:background="@android:color/transparent"
+                        android:hint="description"
                         android:lines="4"
                         android:maxLength="100"
+                        android:paddingStart="16dp"
+                        android:text="@={vm.taskDescription}"
                         android:textSize="@dimen/textSize" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,12 +111,12 @@
                     android:background="@color/divider_grey" />
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:id="@+id/subcategoryLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
 
 
                     <Button
@@ -131,17 +129,16 @@
                         android:text="work"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        />
+                        app:layout_constraintStart_toStartOf="parent" />
 
 
                     <Button
                         android:id="@+id/btn_create_task_home"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:layout_marginStart="16dp"
                         android:layout_toEndOf="@+id/btn_create_task_work"
+                        android:layout_weight="1"
                         android:background="@drawable/category_selector"
                         android:gravity="center"
                         android:text="home"
@@ -153,30 +150,29 @@
                         android:id="@+id/btn_create_task_family"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:layout_marginStart="16dp"
                         android:layout_toEndOf="@+id/btn_create_task_home"
+                        android:layout_weight="1"
                         android:background="@drawable/category_selector"
                         android:gravity="center"
                         android:text="family"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        />
+                        app:layout_constraintEnd_toEndOf="parent" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btn_create_task_meeting"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:layout_marginTop="16dp"
+                        android:layout_weight="1"
                         android:background="@drawable/category_selector"
                         android:text="meeting"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -186,10 +182,10 @@
                         android:id="@+id/btn_create_task_health"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginTop="16dp"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
                         android:layout_toEndOf="@+id/btn_create_task_meeting"
+                        android:layout_weight="1"
                         android:background="@drawable/category_selector"
                         android:text="health"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -199,10 +195,10 @@
                         android:id="@+id/btn_create_task_fun"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginTop="16dp"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
                         android:layout_toEndOf="@+id/btn_create_task_health"
+                        android:layout_weight="1"
                         android:background="@drawable/category_selector"
                         android:text="fun"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -211,20 +207,19 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="8dp"
-                    >
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btn_create_task_fast"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:layout_marginTop="16dp"
+                        android:layout_weight="1"
                         android:background="@drawable/category_important_selector"
                         android:text="fast"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -234,10 +229,10 @@
                         android:id="@+id/btn_create_task_medium"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginTop="16dp"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
                         android:layout_toEndOf="@+id/btn_create_task_fast"
+                        android:layout_weight="1"
                         android:background="@drawable/category_medium_selector"
                         android:text="medium"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -247,10 +242,10 @@
                         android:id="@+id/btn_create_task_wait"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginTop="16dp"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
                         android:layout_toEndOf="@+id/btn_create_task_medium"
+                        android:layout_weight="1"
                         android:background="@drawable/category_can_wait_selector"
                         android:text="can wait"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -279,8 +274,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
-                        android:hint="due to:"
                         android:background="@android:color/transparent"
+                        android:hint="due to:"
                         android:text="@={vm.taskDueTo}"
                         android:textSize="@dimen/categorySize"
                         tools:text="01 янв 2021" />
@@ -307,7 +302,6 @@
                 </RelativeLayout>
 
 
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -329,8 +323,7 @@
 
 
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                     />
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
             </LinearLayout>
 

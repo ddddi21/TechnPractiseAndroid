@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class GetFunVM @Inject constructor(
     val apiInteractor: ApiInteractor
-): ViewModel() {
+) : ViewModel() {
     var activity = MutableLiveData<String>()
     var accessibility = MutableLiveData<String>()
     var type = MutableLiveData<String>()
@@ -22,14 +22,15 @@ class GetFunVM @Inject constructor(
 
     var newActivity = MutableLiveData<ActivityFromApi>()
 
-    fun letsFun(){
+    fun letsFun() {
         apiInteractor.getSomeActivity(newActivity)
         activity.value = newActivity.value?.activity
-        accessibility.value = newActivity.value?.let { FunHelper.translateAccessibility(it.accessibility) }
+        accessibility.value =
+            newActivity.value?.let { FunHelper.translateAccessibility(it.accessibility) }
         type.value = newActivity.value?.type
         participants.value = newActivity.value?.participants.toString()
         price.value = newActivity.value?.let { FunHelper.translatePrice(it.price) }
-        link.value = newActivity.value?.link?:""
+        link.value = newActivity.value?.link ?: ""
         isHasLink.value = !newActivity.value?.link.isNullOrEmpty()
         Log.d("find bug", newActivity.toString())
     }

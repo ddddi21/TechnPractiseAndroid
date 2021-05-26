@@ -4,18 +4,12 @@ import android.app.Application
 import com.example.technpractiseandroid.di.components.DaggerMainAppComponent
 import com.example.technpractiseandroid.di.components.MainAppComponent
 
-class MyMainApplication: Application() {
-    lateinit var mainApplicationInstance: MyMainApplication
-    companion object{
+class MyMainApplication : Application() {
+
+    companion object {
         lateinit var appComponent: MainAppComponent
-//        lateinit var authComponent: AuthComponent
     }
 
-
-//    @Synchronized
-//    fun getInstance(): MyMainApplication {
-//        return mainApplicationInstance
-//    }
 
     override fun onCreate() {
         super.onCreate()
@@ -24,10 +18,10 @@ class MyMainApplication: Application() {
     }
 
 
-    fun initDagger(app:Application) {
-             appComponent = DaggerMainAppComponent.builder()
-                .application(app)
-                .build()
+    fun initDagger(app: Application) {
+        appComponent = DaggerMainAppComponent.builder()
+            .application(app)
+            .build()
 //             authComponent = Dagger
     }
 

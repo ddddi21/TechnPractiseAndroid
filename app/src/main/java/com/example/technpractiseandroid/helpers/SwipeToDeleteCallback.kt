@@ -135,7 +135,8 @@ abstract class SwipeToDeleteCallback(
         private val clickListener: UnderlayButtonClickListener
     ) {
         private var clickableRegion: RectF? = null
-        private val textSizeInPixel: Float = textSize * context.resources.displayMetrics.density // dp to px
+        private val textSizeInPixel: Float =
+            textSize * context.resources.displayMetrics.density // dp to px
         private val horizontalPadding = 50.0f
         val intrinsicWidth: Float
 

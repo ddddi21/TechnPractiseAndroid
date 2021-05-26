@@ -7,24 +7,21 @@ import androidx.lifecycle.viewModelScope
 import com.example.technpractiseandroid.interactors.TasksInteractor
 import com.example.technpractiseandroid.model.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AllTasksVM @Inject constructor(
-    var db: FirebaseFirestore,
     var mAuth: FirebaseAuth,
     var tasksInteractor: TasksInteractor
-) :ViewModel() {
+) : ViewModel() {
     val today = MutableLiveData(false)
     val myTasks: MutableList<Task> = mutableListOf()
     val tasksList = MutableLiveData<List<Task>>()
     private var errorMessage = MutableLiveData<String>()
     private var errorMessageWhenDelete = MutableLiveData<String>()
-    var isErrorWhenDelete= MutableLiveData<Boolean> ()
-    private var noTasks = false
+    var isErrorWhenDelete = MutableLiveData<Boolean>()
     var isVisible = MutableLiveData(true)
-    var isNoTasksMessage =  MutableLiveData<Boolean>()
+    var isNoTasksMessage = MutableLiveData<Boolean>()
 
 
     var taskAdapter = TasksAdapter(myTasks)
@@ -48,24 +45,27 @@ class AllTasksVM @Inject constructor(
 
     fun deleteTask(position: Int) {
         viewModelScope.launch {
-                try {
-                    val currentUserId = mAuth.currentUser?.uid
-                    if (currentUserId != null) {
-                        tasksInteractor.deleteTask(currentUserId,
-                            isError = isErrorWhenDelete,
-                            errorMessage = errorMessageWhenDelete,
-                            position = position)
-                    }
-                } catch (throwable: Throwable) {
-                    Log.d("find bug", throwable.message.toString())
+            try {
+                val currentUserId = mAuth.currentUser?.uid
+                if (currentUserId != null) {
+                    tasksInteractor.deleteTask(
+                        currentUserId,
+                        isError = isErrorWhenDelete,
+                        errorMessage = errorMessageWhenDelete,
+                        position = position
+                    )
+                    taskAdapter.removeItem(position)
                 }
+            } catch (throwable: Throwable) {
+                Log.d("find bug", throwable.message.toString())
             }
+        }
     }
 
 
-    fun emptyList(){
-        isNoTasksMessage.value = myTasks.size.equals(0)
-        Log.d("find bug","${isNoTasksMessage.value} - when empty list" )
+    fun emptyList() {
+        isNoTasksMessage.value = myTasks.size == 0
+        Log.d("find bug", "${isNoTasksMessage.value} - when empty list")
     }
 
 }

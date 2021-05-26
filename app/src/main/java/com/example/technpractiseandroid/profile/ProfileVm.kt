@@ -6,10 +6,10 @@ import javax.inject.Inject
 
 class ProfileVm @Inject constructor(
     val mAuth: FirebaseAuth
-    ):ViewModel() {
+) : ViewModel() {
 
-        fun logOut(){
-            mAuth.signOut()
-        }
+    fun logOut() {
+        mAuth.signOut()
+    }
 
 }

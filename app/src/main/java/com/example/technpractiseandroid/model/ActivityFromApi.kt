@@ -1,8 +1,6 @@
 package com.example.technpractiseandroid.model
 
-import com.google.gson.annotations.SerializedName
-
-data class ActivityFromApi (
+data class ActivityFromApi(
     var activity: String,
     var accessibility: Double,
     var type: String,
@@ -10,4 +8,4 @@ data class ActivityFromApi (
     var price: Double,
     var key: String,
     var link: String
-    )
+)

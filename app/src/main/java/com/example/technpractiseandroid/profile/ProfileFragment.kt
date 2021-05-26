@@ -11,7 +11,7 @@ import com.example.technpractiseandroid.base.*
 import com.example.technpractiseandroid.databinding.ProfileFragmentBinding
 import javax.inject.Inject
 
-class ProfileFragment: BaseFragment<ProfileVm>() {
+class ProfileFragment : BaseFragment<ProfileVm>() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -27,7 +27,7 @@ class ProfileFragment: BaseFragment<ProfileVm>() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = ProfileFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = profileVM
@@ -42,7 +42,7 @@ class ProfileFragment: BaseFragment<ProfileVm>() {
 
     }
 
-    private fun toFun(){
+    private fun toFun() {
         navigationController.navigate(R.id.action_profileFragment_to_getFunFragment)
     }
 }

@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class ApiInteractor @Inject constructor(
     private var apiRepository: ApiRepository
-    ) {
-    fun getSomeActivity(newActivity: MutableLiveData<ActivityFromApi>){
+) {
+    fun getSomeActivity(newActivity: MutableLiveData<ActivityFromApi>) {
         apiRepository.getActivity(newActivity)
     }
 

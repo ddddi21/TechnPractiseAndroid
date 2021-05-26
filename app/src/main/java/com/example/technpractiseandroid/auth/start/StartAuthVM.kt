@@ -6,7 +6,5 @@ import javax.inject.Inject
 
 class StartAuthVM @Inject constructor(
     var mAuth: FirebaseAuth
-):
-    ViewModel() {
-
-}
+) :
+    ViewModel() {}

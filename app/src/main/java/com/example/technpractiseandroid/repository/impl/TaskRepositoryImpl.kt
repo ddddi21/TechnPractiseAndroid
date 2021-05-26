@@ -10,22 +10,22 @@ import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.lang.NullPointerException
-import javax.inject.Named
-import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.resume
 
 class TaskRepositoryImpl(
-    var db: FirebaseFirestore,
-    @Named("IO")private val context: CoroutineContext
-): TaskRepository {
+    var db: FirebaseFirestore
+) : TaskRepository {
 
-    override suspend fun getTasksSize(currentUserId: String, size:MutableLiveData<Int>): QuerySnapshot =
+    override suspend fun getTasksSize(
+        currentUserId: String,
+        size: MutableLiveData<Int>
+    ): QuerySnapshot =
         suspendCancellableCoroutine { continuation ->
             db.collection(currentUserId)
                 .get()
                 .addOnSuccessListener {
                     if (it.lastOrNull() == null) {
-                        size.value = 0
+                        size.value = 1
                         Log.d("find bug", "tasksSize ${it.size()}")
                     } else {
                         size.value = Integer.parseInt(it.lastOrNull()!!.id) + 1
@@ -36,7 +36,10 @@ class TaskRepositoryImpl(
                 }
         }
 
-    override suspend fun getTasksSizeForCount(currentUserId: String, size:MutableLiveData<Int>): QuerySnapshot =
+    override suspend fun getTasksSizeForCount(
+        currentUserId: String,
+        size: MutableLiveData<Int>
+    ): QuerySnapshot =
         suspendCancellableCoroutine { continuation ->
             db.collection(currentUserId)
                 .get()
@@ -52,8 +55,10 @@ class TaskRepositoryImpl(
                 }
         }
 
-    override suspend fun getTasksCountByImportanceTagImportant(currentUserId: String,
-                                                               size:MutableLiveData<Int>):
+    override suspend fun getTasksCountByImportanceTagImportant(
+        currentUserId: String,
+        size: MutableLiveData<Int>
+    ):
             QuerySnapshot =
         suspendCancellableCoroutine { continuation ->
             db.collection(currentUserId)
@@ -72,7 +77,8 @@ class TaskRepositoryImpl(
         }
 
     override suspend fun getTasksCountByImportanceTagMedium(
-        currentUserId: String, size:MutableLiveData<Int>): QuerySnapshot =
+        currentUserId: String, size: MutableLiveData<Int>
+    ): QuerySnapshot =
         suspendCancellableCoroutine { continuation ->
             db.collection(currentUserId)
                 .whereEqualTo("importance", "medium")
@@ -90,7 +96,8 @@ class TaskRepositoryImpl(
         }
 
     override suspend fun getTasksCountByImportanceTagLight(
-        currentUserId: String, size:MutableLiveData<Int>): QuerySnapshot =
+        currentUserId: String, size: MutableLiveData<Int>
+    ): QuerySnapshot =
         suspendCancellableCoroutine { continuation ->
             db.collection(currentUserId)
                 .whereEqualTo("importance", "can wait")
@@ -108,16 +115,18 @@ class TaskRepositoryImpl(
         }
 
     @InternalCoroutinesApi
-    override suspend fun createTask(task: HashMap<String, String?>,
-                                    taskCreatingErrorMessage: MutableLiveData<String>,
-                                    currentUserId: String, tasksSize: MutableLiveData<Int>): Void =
+    override suspend fun createTask(
+        task: HashMap<String, String?>,
+        taskCreatingErrorMessage: MutableLiveData<String>,
+        currentUserId: String, tasksSize: MutableLiveData<Int>
+    ): Void =
         suspendCancellableCoroutine { continuation ->
             db.collection(currentUserId)
                 .document("${tasksSize.value}")
                 .set(task, SetOptions.merge())
                 .addOnSuccessListener {
                     Log.d("find bug", "DocumentSnapshot added")
-                    tasksSize.value=+1
+                    tasksSize.value = +1
                     continuation.resume(it)
                 }
                 .addOnFailureListener { e ->
@@ -128,65 +137,69 @@ class TaskRepositoryImpl(
         }
 
     @InternalCoroutinesApi
-    override suspend fun loadTasks(currentUserId: String, myTasks: MutableList<Task>,
-                                   tasksList: MutableLiveData<List<Task>>,
-                                   errorMessage: MutableLiveData<String>): QuerySnapshot=
-        suspendCancellableCoroutine{ continuatuaion ->
-        db.collection(currentUserId)
-            .get()
-            .addOnSuccessListener { documents ->
-                if (documents != null) {
-                    for (document in documents) {
-                        val task = Task(currentUserId!!, "", "", "", "", "", "")
-                        Log.d("find bug", "${document.id} => ${document.data}")
-                        task.apply {
-                            name = document.data.get("name").toString()
-                            description = document.data.get("description").toString()
-                            tag = document.data.get("tag").toString()
-                            importance = document.data.get("importance").toString()
-                            date = document.data.get("date").toString()
-                            time = document.data.get("time").toString()
-                            myTasks.add(task)
+    override suspend fun loadTasks(
+        currentUserId: String, myTasks: MutableList<Task>,
+        tasksList: MutableLiveData<List<Task>>,
+        errorMessage: MutableLiveData<String>
+    ): QuerySnapshot =
+        suspendCancellableCoroutine { continuatuaion ->
+            db.collection(currentUserId)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents != null) {
+                        for (document in documents) {
+                            val task = Task(currentUserId!!, "", "", "", "", "", "")
+                            Log.d("find bug", "${document.id} => ${document.data}")
+                            task.apply {
+                                name = document.data.get("name").toString()
+                                description = document.data.get("description").toString()
+                                tag = document.data.get("tag").toString()
+                                importance = document.data.get("importance").toString()
+                                date = document.data.get("date").toString()
+                                time = document.data.get("time").toString()
+                                myTasks.add(task)
+                            }
                         }
+                        tasksList.value = (myTasks)
+                        Log.d("find bug", "DocumentSnapshot data: ${documents.size()}")
+                        Log.d("find bug", "${myTasks.toString()}")
+                        continuatuaion.resume(documents)
+                    } else {
+                        errorMessage.postValue("no such task")
+                        Log.d("find bug", "no such document")
+                        continuatuaion.tryResumeWithException(NullPointerException())
                     }
-                    tasksList.value = (myTasks)
-//                        taskAdapter = TasksAdapter(tasksList.value!!)
-                    Log.d("find bug", "DocumentSnapshot data: ${documents.size()}")
-                    Log.d("find bug", "${myTasks.toString()}")
-                    continuatuaion.resume(documents)
-                } else {
-                    errorMessage.postValue("no such task")
-                    Log.d("find bug", "no such document")
-                    continuatuaion.tryResumeWithException(NullPointerException())
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("find bug", "load get failed with ", exception)
-                errorMessage.value = exception.message.toString()
-                continuatuaion.tryResumeWithException(exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.d("find bug", "load get failed with ", exception)
+                    errorMessage.value = exception.message.toString()
+                    continuatuaion.tryResumeWithException(exception)
+                }
 
-    }
+        }
 
 
     @InternalCoroutinesApi
-    override suspend fun delete(currentUserId: String, isError: MutableLiveData<Boolean>,
-                                errorMessage: MutableLiveData<String>,
-                                position:Int): Void =
+    override suspend fun delete(
+        currentUserId: String, isError: MutableLiveData<Boolean>,
+        errorMessage: MutableLiveData<String>,
+        position: Int
+    ): Void =
         suspendCancellableCoroutine { continuatuaion ->
-            db.collection(currentUserId).document("$position")
+            Log.d("find bug", "delete position $position")
+            db.collection(currentUserId).document("${position+1}")
                 .delete()
                 .addOnSuccessListener {
-                            Log.d("find bug", "success delete")
-                            continuatuaion.resume(it)
-                            isError.value = false
-                    }
-                .addOnFailureListener{ exception ->
+                    Log.d("find bug", "success delete")
+                    continuatuaion.resume(it)
+                    isError.value = false
+                }
+                .addOnFailureListener { exception ->
                     Log.d("find bug", "delete get failed with ", exception)
                     isError.value = true
                     errorMessage.value = exception.message.toString()
                     continuatuaion.tryResumeWithException(exception)
                 }
-    }
+        }
 }
 

@@ -11,7 +11,7 @@ import com.example.technpractiseandroid.base.BaseFragment
 import com.example.technpractiseandroid.databinding.GetFunFragmentBinding
 import javax.inject.Inject
 
-class GetFunFragment: BaseFragment<GetFunVM> (){
+class GetFunFragment : BaseFragment<GetFunVM>() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -27,14 +27,14 @@ class GetFunFragment: BaseFragment<GetFunVM> (){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = GetFunFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = getFunVM
         getFunVM.isHasLink.observe(viewLifecycleOwner) {
-            if(getFunVM.isHasLink.value == false){
+            if (getFunVM.isHasLink.value == false) {
                 binding.tvActivityLink.visibility = View.GONE
-            } else{
+            } else {
                 binding.tvActivityLink.visibility = View.VISIBLE
             }
         }
@@ -42,8 +42,6 @@ class GetFunFragment: BaseFragment<GetFunVM> (){
         binding.btnAgain.setOnClickListener {
             getFunVM.letsFun()
         }
-
         return binding.root
-
     }
 }

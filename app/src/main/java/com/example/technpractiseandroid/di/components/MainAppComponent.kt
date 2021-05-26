@@ -28,7 +28,7 @@ import javax.inject.Singleton
     StartAuthModule::class, FirebaseModule::class,
     ViewModelFactoryModule::class, LoginModule::class, RegistrationModule::class,
     StartAuthModule::class, HomeScreenModule::class, ProfileModule:: class, CreateTaskModule :: class,
-    AllTasksModule::class, RepositoriesModule::class]
+    AllTasksModule::class, RepositoriesModule::class, NetModule:: class]
 )
 @Singleton
 interface MainAppComponent: AndroidInjector<Application> {

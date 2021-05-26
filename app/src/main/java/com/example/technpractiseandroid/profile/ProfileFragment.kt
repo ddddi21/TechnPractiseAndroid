@@ -41,6 +41,9 @@ class ProfileFragment: BaseFragment<ProfileVm>() {
             profileVM.logOut()
             activity?.startLoginActivity()
         }
+        binding.tvFun.setOnClickListener {
+            profileVM.letsFun()
+        }
         return binding.root
 
     }

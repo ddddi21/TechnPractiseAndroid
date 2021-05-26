@@ -1,10 +1,12 @@
 package com.example.technpractiseandroid.auth.registration
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -69,11 +71,15 @@ class RegistrationFragment : BaseFragment<RegistrationVM>() {
                             ).show()
                         } else {
                             activity?.startApp()
-                            Toast.makeText(
+                            var toast = Toast.makeText(
                                 context,
                                 "Please, confirm your account at ${registrationVM.email.value}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                                Toast.LENGTH_LONG
+                            )
+                            toast.view?.setBackgroundResource(R.color.divider_grey)
+                            val tv = toast.view?.findViewById<TextView>(android.R.id.message)
+                            tv?.setTextColor(Color.parseColor("#711547"))
+                            toast.show()
                         }
                     } catch (throwable: Throwable) {
                         Log.d("find bug", throwable.message.toString())

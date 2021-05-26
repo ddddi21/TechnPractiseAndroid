@@ -23,6 +23,8 @@ class AllTasksVM @Inject constructor(
     var isVisible = MutableLiveData(true)
     var isNoTasksMessage = MutableLiveData<Boolean>()
 
+    var newListForSortByTag = MutableLiveData<List<Task>>()
+
 
     var taskAdapter = TasksAdapter(myTasks)
 
@@ -62,6 +64,14 @@ class AllTasksVM @Inject constructor(
         }
     }
 
+    fun loadTasksByImportance(tag: String){
+        val newList: MutableList<Task> = mutableListOf()
+        tasksList.value?.forEach {  task ->
+            if(task.importance == tag)
+                newList.add(task)
+        }
+        newListForSortByTag.value = newList
+    }
 
     fun emptyList() {
         isNoTasksMessage.value = myTasks.size == 0

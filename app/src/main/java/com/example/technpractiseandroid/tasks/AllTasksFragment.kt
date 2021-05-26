@@ -1,6 +1,7 @@
 package com.example.technpractiseandroid.tasks
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,12 +48,27 @@ class AllTasksFragment : BaseFragment<AllTasksVM>() {
             }
             progressBar.visibility = View.VISIBLE
         }
-        allTasksVM.tasksList.observe(viewLifecycleOwner) { list ->
-            allTasksVM.taskAdapter.updateDataSource(list)
-            binding.progressBar.visibility = View.GONE
-        }
+
+        val tag = arguments?.getString("tag")
+
         allTasksVM.loadTasks()
 
+        allTasksVM.tasksList.observe(viewLifecycleOwner) { list ->
+            if (tag != null) {
+                Log.d("find bug", "all task fragment with tag ${tag.toString()}")
+                allTasksVM.newListForSortByTag.observe(viewLifecycleOwner) { list2 ->
+                    allTasksVM.taskAdapter.updateDataSource(list2)
+                }
+                allTasksVM.loadTasksByImportance(tag.toString())
+                if (!allTasksVM.newListForSortByTag.value.isNullOrEmpty()) {
+                    allTasksVM.taskAdapter.updateDataSource(allTasksVM.newListForSortByTag.value!!)
+                }
+                return@observe
+            } else {
+                allTasksVM.taskAdapter.updateDataSource(list)
+            }
+            binding.progressBar.visibility = View.GONE
+        }
 
         binding.swipe.setOnRefreshListener {
             binding.swipe.isRefreshing = false

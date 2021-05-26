@@ -18,7 +18,8 @@ import com.example.technpractiseandroid.base.navigationController
 import timber.log.Timber
 
 
-class StartAuthFragment : BaseFragment<StartAuthVM>() {
+class
+StartAuthFragment : BaseFragment<StartAuthVM>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

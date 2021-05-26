@@ -21,6 +21,7 @@ interface TaskRepository {
 
     suspend fun getTasksSizeForCount(currentUserId: String, size:MutableLiveData<Int>): QuerySnapshot
 
+    //блинб дублирование(((, можно было объединить, но я не буду переделывать..
     suspend fun getTasksCountByImportanceTagImportant(
         currentUserId: String,
         size:MutableLiveData<Int>): QuerySnapshot

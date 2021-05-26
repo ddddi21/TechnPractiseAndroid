@@ -46,7 +46,7 @@ class HomeScreenVM @Inject constructor(
         if (firebaseAuth.currentUser != null) {
             currentUser.value = firebaseAuth.currentUser
             Log.d("find bug", "${firebaseAuth.currentUser}")
-            username.value = "Hello ${firebaseAuth.currentUser!!.displayName}"
+            username.value = "Hello, ${firebaseAuth.currentUser!!.displayName}!"
         }
     }
 

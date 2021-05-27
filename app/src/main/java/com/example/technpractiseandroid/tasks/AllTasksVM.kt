@@ -36,7 +36,7 @@ class AllTasksVM @Inject constructor(
                 if (currentUserId != null) {
                     tasksInteractor.loadTasks(currentUserId, myTasks, tasksList, errorMessage)
                     isVisible.value = true
-                    isNoTasksMessage.value = false
+                    emptyList()
                 }
             } catch (throwable: Throwable) {
                 Log.d("find bug", throwable.message.toString())
@@ -58,9 +58,12 @@ class AllTasksVM @Inject constructor(
                         position = position
                     )
                     taskAdapter.removeItem(position)
+                    isVisible.value = true
                 }
             } catch (throwable: Throwable) {
                 Log.d("find bug", throwable.message.toString())
+            } finally {
+                isVisible.value = false
             }
         }
     }
@@ -72,10 +75,11 @@ class AllTasksVM @Inject constructor(
                 newList.add(task)
         }
         newListForSortByTag.value = newList
+        isNoTasksMessage.value = newListForSortByTag.value.isNullOrEmpty()
     }
 
     fun emptyList() {
-        isNoTasksMessage.value = myTasks.size == 0
+        isNoTasksMessage.value = tasksList.value.isNullOrEmpty()
         Log.d("find bug", "${isNoTasksMessage.value} - when empty list")
     }
 

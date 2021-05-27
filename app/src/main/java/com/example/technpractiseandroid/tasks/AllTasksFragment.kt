@@ -110,6 +110,7 @@ class AllTasksFragment : BaseFragment<AllTasksVM>() {
                         allTasksVM.loadTasks()
                         tasksList.observe(viewLifecycleOwner) { list ->
                             allTasksVM.taskAdapter.updateDataSource(list)
+                            binding.progressBar.visibility = View.GONE
                         }
                     }
                 }

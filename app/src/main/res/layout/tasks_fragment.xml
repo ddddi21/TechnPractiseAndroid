@@ -38,18 +38,30 @@
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:progressTint="@color/bottom"
-                android:backgroundTint="@color/task_background"
-                android:visibility="@{vm.visible ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="no tasks yet.."
+            android:textColor="@color/bottom"
+            android:visibility="@{vm.isNoTasksMessage ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:progressTint="@color/bottom"
+            android:visibility="@{vm.visible ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

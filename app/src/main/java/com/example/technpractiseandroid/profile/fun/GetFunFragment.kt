@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.observe
 import androidx.lifecycle.ViewModelProvider
 import com.example.technpractiseandroid.MyMainApplication
+import com.example.technpractiseandroid.R
 import com.example.technpractiseandroid.base.BaseFragment
+import com.example.technpractiseandroid.base.navigationController
 import com.example.technpractiseandroid.databinding.GetFunFragmentBinding
 import javax.inject.Inject
 
@@ -42,6 +44,16 @@ class GetFunFragment : BaseFragment<GetFunVM>() {
         binding.btnAgain.setOnClickListener {
             getFunVM.letsFun()
         }
+
+        val bundle = Bundle()
+        binding.tvAdd.setOnClickListener {
+            bundle.putString("actionName", getFunVM.activity.value)
+            bundle.putString("actionDesc", getFunVM.type.value)
+            navigationController.navigate(
+                R.id.action_getFunFragment_to_createTaskFragment,
+                bundle)
+        }
+
         return binding.root
     }
 }

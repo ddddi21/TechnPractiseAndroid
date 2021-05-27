@@ -49,6 +49,19 @@
         android:label="fragment_get_fun"
         tools:layout="@layout/get_fun_fragment">
 
+        <argument
+            android:name="actionName"
+            app:argType="string" />
+
+        <argument
+            android:name="actionDesc"
+            app:argType="string" />
+
+
+        <action
+            android:id="@+id/action_getFunFragment_to_createTaskFragment"
+            app:destination="@id/createTaskFragment" />
+
     </fragment>
 
 </navigation>

@@ -68,7 +68,7 @@ class LoginFragment : BaseFragment<LoginVM>() {
                             loginVM.loginErrorMessage
                         )
                         Log.d("find bug", "loginErrorMessage ${loginVM.loginErrorMessage}")
-                        if (loginVM.loginErrorMessage.value.isNullOrEmpty()) {
+                        if (!loginVM.loginErrorMessage.value.isNullOrEmpty()) {
                             binding.progressBar.visibility = View.GONE
                             Toast.makeText(
                                 context,

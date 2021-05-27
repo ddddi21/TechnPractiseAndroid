@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.text.format.DateUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,6 +77,17 @@ class CreateTaskFragment : BaseFragment<CreateTaskVM>() {
         currentDateTime = binding.currentDate
         binding.lifecycleOwner = this
         binding.vm = createTaskVM
+
+        val randomActionName = arguments?.getString("actionName")
+        val randomActionDesc = arguments?.getString("actionDesc")
+
+        if(!(randomActionDesc.isNullOrEmpty() && randomActionName.isNullOrEmpty())){
+            createTaskVM.taskName.value = randomActionDesc
+            createTaskVM.taskDescription.value = randomActionName
+            Log.d("find bug", "randomActionDesc - $randomActionDesc, randomActionName - $randomActionName")
+            chooseTag(binding.btnCreateTaskFun)
+        }
+
         binding.onDateClick.setOnClickListener {
             setDate(view)
         }

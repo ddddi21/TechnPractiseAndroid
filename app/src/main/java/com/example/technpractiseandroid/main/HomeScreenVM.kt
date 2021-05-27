@@ -77,10 +77,13 @@ class HomeScreenVM @Inject constructor(
                 mAuth.currentUser?.let {
                     tasksInteractor.getTasksCountByImportanceTagImportant(it.uid, tasksCountFastInt)
                     tasksCountFastString.value = tasksCountFastInt.value.toString()
+                    isVisibleProgress.value = true
                     Log.d("find bug", "fast tasks home page #${tasksCountFastString.value}")
                 }
             } catch (throwable: Throwable) {
                 Log.d("find bug", throwable.message.toString())
+            }finally {
+                isVisibleProgress.value = false
             }
         }
     }
@@ -91,10 +94,13 @@ class HomeScreenVM @Inject constructor(
                 mAuth.currentUser?.let {
                     tasksInteractor.getTasksCountByImportanceTagMedium(it.uid, tasksCountMediumInt)
                     tasksCountMediumString.value = tasksCountMediumInt.value.toString()
+                    isVisibleProgress.value = true
                     Log.d("find bug", "medium tasks home page #${tasksCountMediumString.value}")
                 }
             } catch (throwable: Throwable) {
                 Log.d("find bug", throwable.message.toString())
+            } finally {
+                isVisibleProgress.value = false
             }
         }
     }
@@ -105,10 +111,13 @@ class HomeScreenVM @Inject constructor(
                 mAuth.currentUser?.let {
                     tasksInteractor.getTasksCountByImportanceTagLight(it.uid, tasksCountLightInt)
                     tasksCountLightString.value = tasksCountLightInt.value.toString()
+                    isVisibleProgress.value = true
                     Log.d("find bug", "fast tasks home page #${tasksCountLightString.value}")
                 }
             } catch (throwable: Throwable) {
                 Log.d("find bug", throwable.message.toString())
+            } finally {
+                isVisibleProgress.value = false
             }
         }
     }

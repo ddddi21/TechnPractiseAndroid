@@ -18,22 +18,25 @@
         android:layout_marginBottom="60dp">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe2"
+            android:id="@+id/swipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="no tasks yet.."
-                android:textColor="@color/bottom"
-                android:visibility="@{vm.isNoTasksMessage ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_tasks_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/item_task" />
+                <!--    <SearchView-->
+                <!--        android:layout_width="match_parent"-->
+                <!--        android:layout_height="match_parent"-->
+                <!--        android:id="@+id/task_search"-->
+                <!--        tools:layout_editor_absoluteX="0dp"-->
+                <!--        tools:layout_editor_absoluteY="-336dp" />-->
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -46,26 +49,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_tasks_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                tools:listitem="@layout/item_task" />
-            <!--    <SearchView-->
-            <!--        android:layout_width="match_parent"-->
-            <!--        android:layout_height="match_parent"-->
-            <!--        android:id="@+id/task_search"-->
-            <!--        tools:layout_editor_absoluteX="0dp"-->
-            <!--        tools:layout_editor_absoluteY="-336dp" />-->
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

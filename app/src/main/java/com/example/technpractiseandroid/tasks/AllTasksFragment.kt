@@ -71,14 +71,13 @@ class AllTasksFragment : BaseFragment<AllTasksVM>() {
         }
 
         binding.swipe.setOnRefreshListener {
-            binding.swipe.isRefreshing = false
-            allTasksVM.tasksList.observe(viewLifecycleOwner) {
-                allTasksVM.taskAdapter.updateDataSource(it)
-            }
-        }
-
-        binding.swipe2.setOnRefreshListener {
-            binding.swipe2.isRefreshing = false
+                binding.swipe.isRefreshing = false
+                allTasksVM.loadTasks()
+                allTasksVM.tasksList.observe(viewLifecycleOwner) {
+                    allTasksVM.taskAdapter.updateDataSource(it)
+                    binding.progressBar.visibility = View.GONE
+                }
+            binding.progressBar.visibility = View.VISIBLE
         }
         setUpRecyclerView()
         return binding.root
@@ -108,6 +107,7 @@ class AllTasksFragment : BaseFragment<AllTasksVM>() {
                     allTasksVM.apply {
                         deleteTask(position)
                         taskAdapter.removeItem(position)
+                        allTasksVM.loadTasks()
                         tasksList.observe(viewLifecycleOwner) { list ->
                             allTasksVM.taskAdapter.updateDataSource(list)
                         }

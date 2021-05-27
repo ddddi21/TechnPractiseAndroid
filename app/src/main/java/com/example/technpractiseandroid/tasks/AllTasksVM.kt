@@ -31,6 +31,7 @@ class AllTasksVM @Inject constructor(
     fun loadTasks() {
         viewModelScope.launch {
             try {
+                myTasks.removeAll(myTasks)
                 val currentUserId = mAuth.currentUser?.uid
                 if (currentUserId != null) {
                     tasksInteractor.loadTasks(currentUserId, myTasks, tasksList, errorMessage)

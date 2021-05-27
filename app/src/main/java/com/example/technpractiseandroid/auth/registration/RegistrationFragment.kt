@@ -50,6 +50,18 @@ class RegistrationFragment : BaseFragment<RegistrationVM>() {
             onLogin()
         }
 
+          binding.etSignUpUsername.setOnClickListener {
+            binding.progressBar.visibility = View.GONE
+        }
+
+        binding.etSignUpPassword.setOnClickListener{
+            binding.progressBar.visibility = View.GONE
+        }
+
+        binding.etSignUpUsername.setOnClickListener {
+            binding.progressBar.visibility = View.GONE
+        }
+
         binding.btnSignUpEnter.setOnClickListener {
             createAccount()
             val nevalid = registrationVM.validForm()
@@ -68,6 +80,7 @@ class RegistrationFragment : BaseFragment<RegistrationVM>() {
                                 "${registrationVM.registrationErrorMessage}")
                         registrationVM.userInteractor.addUserInfo(registrationVM.username)
                         if (!registrationVM.registrationErrorMessage.value.isNullOrEmpty()) {
+                            binding.progressBar.visibility = View.GONE
                             Toast.makeText(
                                 context, registrationVM.registrationErrorMessage.value,
                                 Toast.LENGTH_SHORT

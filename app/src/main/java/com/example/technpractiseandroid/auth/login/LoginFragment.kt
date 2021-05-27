@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.observe
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.technpractiseandroid.MyMainApplication
@@ -44,6 +45,14 @@ class LoginFragment : BaseFragment<LoginVM>() {
             onRegistration()
         }
 
+        binding.etSignUpUsername.setOnClickListener {
+            binding.progressBar.visibility = View.GONE
+        }
+
+        binding.etSignUpPassword.setOnClickListener{
+            binding.progressBar.visibility = View.GONE
+        }
+
         binding.btnSignUpEnter.setOnClickListener {
             successLogin()
             val nevalid = loginVM.validForm()
@@ -59,7 +68,8 @@ class LoginFragment : BaseFragment<LoginVM>() {
                             loginVM.loginErrorMessage
                         )
                         Log.d("find bug", "loginErrorMessage ${loginVM.loginErrorMessage}")
-                        if (!loginVM.loginErrorMessage.value.isNullOrEmpty()) {
+                        if (loginVM.loginErrorMessage.value.isNullOrEmpty()) {
+                            binding.progressBar.visibility = View.GONE
                             Toast.makeText(
                                 context,
                                 loginVM.loginErrorMessage.value,

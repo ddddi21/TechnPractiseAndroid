@@ -114,7 +114,7 @@ class HomeScreenVM @Inject constructor(
     }
 
     fun randomSupport() {
-        val id = (1..15).random()
+        val id = (1..20).random()
         Log.d("find bug", "random words #$id")
         val wordsFromRepo = wordRepository.getWordById(id)
         if (wordsFromRepo != null) {

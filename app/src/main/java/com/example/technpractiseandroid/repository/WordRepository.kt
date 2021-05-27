@@ -30,8 +30,13 @@ object WordRepository {
             Word(12,"Take a deep breath, it’s just a bad day not a bad life"),
             Word(13,"Believe you can and you are halfway there"),
             Word(14,"Sometimes when you are in a dark place you think you have been buried, but actually you have been planted"),
-            Word(15,"Hey, little fighter, soon things will be brighter")
-            )
+            Word(15,"Hey, little fighter, soon things will be brighter"),
+            Word(16,"You can have anything you want if you want it badly enough. You can be anything you want to be, do anything you set out to accomplish if you hold to that desire with singleness of purpose."),
+            Word(17,"I don’t care how much power, brilliance or energy you have, if you don’t harness it and focus it on a specific target, and hold it there you’re never going to accomplish as much as your ability warrants"),
+            Word(18,"Don’t let what you cannot do interfere with what you can do"),
+            Word(19,"Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time"),
+            Word(20,"You’ve got to get up every morning with determination if you’re going to go to bed with satisfaction.")
+        )
         return words
     }
 }

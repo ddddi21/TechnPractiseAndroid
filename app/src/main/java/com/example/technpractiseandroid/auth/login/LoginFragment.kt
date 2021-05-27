@@ -52,11 +52,13 @@ class LoginFragment : BaseFragment<LoginVM>() {
             } else {
                 lifecycleScope.launch {
                     try {
+                        binding.progressBar.visibility = View.VISIBLE
                         loginVM.userInteractor.login(
                             loginVM.email.value.toString(),
                             loginVM.password.value.toString(),
                             loginVM.loginErrorMessage
                         )
+                        Log.d("find bug", "loginErrorMessage ${loginVM.loginErrorMessage}")
                         if (!loginVM.loginErrorMessage.value.isNullOrEmpty()) {
                             Toast.makeText(
                                 context,
@@ -65,12 +67,15 @@ class LoginFragment : BaseFragment<LoginVM>() {
                             )
                                 .show()
                         } else {
+                            binding.progressBar.visibility = View.GONE
                             activity?.startApp()
                         }
                     } catch (throwable: Throwable) {
                         Toast.makeText(context, throwable.message.toString(), Toast.LENGTH_SHORT)
                             .show()
                         Log.d("find bug", throwable.message.toString())
+                    } finally {
+                        binding.progressBar.visibility = View.GONE
                     }
                 }
             }

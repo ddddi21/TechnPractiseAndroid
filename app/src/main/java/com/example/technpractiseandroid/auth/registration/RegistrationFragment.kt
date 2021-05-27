@@ -58,11 +58,14 @@ class RegistrationFragment : BaseFragment<RegistrationVM>() {
             } else {
                 lifecycleScope.launch {
                     try {
+                        binding.progressBar.visibility = View.VISIBLE
                         registrationVM.userInteractor.createUser(
                             registrationVM.email.value.toString(),
                             registrationVM.password.value.toString(),
                             registrationVM.registrationErrorMessage
                         )
+                        Log.d("find bug", "regisrtationErrorMessage " +
+                                "${registrationVM.registrationErrorMessage}")
                         registrationVM.userInteractor.addUserInfo(registrationVM.username)
                         if (!registrationVM.registrationErrorMessage.value.isNullOrEmpty()) {
                             Toast.makeText(
@@ -70,6 +73,7 @@ class RegistrationFragment : BaseFragment<RegistrationVM>() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
+                            binding.progressBar.visibility = View.GONE
                             activity?.startApp()
                             var toast = Toast.makeText(
                                 context,
@@ -83,6 +87,8 @@ class RegistrationFragment : BaseFragment<RegistrationVM>() {
                         }
                     } catch (throwable: Throwable) {
                         Log.d("find bug", throwable.message.toString())
+                    }finally {
+                        binding.progressBar.visibility = View.GONE
                     }
                 }
             }
